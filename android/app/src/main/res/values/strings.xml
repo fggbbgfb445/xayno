@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">زارت</string>
+    <string name="title_activity_main">زارت</string>
+    <string name="package_name">com.zart.messenger</string>
+    <string name="custom_url_scheme">com.zart.messenger</string>
+</resources>

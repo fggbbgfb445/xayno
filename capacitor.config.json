@@ -1,0 +1,10 @@
+{
+  "appId": "com.zart.messenger",
+  "appName": "زارت",
+  "webDir": "dist",
+  "android": {
+    "buildOptions": {
+      "releaseType": "APK"
+    }
+  }
+}
