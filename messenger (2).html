@@ -293,11 +293,18 @@
     border-radius: 20px;
     padding:11px 16px;
     display:flex; align-items:center;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .composer-box.focused{
+    border-color: rgba(0,212,255,0.8);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.08);
   }
   .composer-box textarea{
     flex:1; resize:none; background:none; border:none; outline:none;
     color:var(--text-1); font-family:inherit; font-size:14.5px;
-    max-height:120px; line-height:1.5;
+    max-height:120px; line-height:1.5; min-height:24px;
+    caret-color: var(--accent-2);
   }
   .composer-box textarea::placeholder{ color:var(--text-3); }
 
@@ -842,6 +849,49 @@
     transition: all .15s ease;
     text-align:right;
   }
+  .action-sheet{
+    position:fixed; inset:0; z-index:90;
+    background: rgba(4,5,12,0.62);
+    display:flex; align-items:flex-end; justify-content:center;
+    padding:18px;
+    backdrop-filter: blur(6px);
+  }
+  .action-sheet-card{
+    width:min(100%, 420px);
+    background: rgba(18,22,42,0.96);
+    border:1px solid var(--stroke);
+    border-radius: 26px 26px 18px 18px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    padding:18px 18px 14px;
+    animation: riseUp .2s ease;
+  }
+  @keyframes riseUp{
+    from{ opacity:0; transform: translateY(18px) scale(0.98); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+  }
+  .action-sheet-header{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; margin-bottom:10px;
+  }
+  .action-sheet-title{
+    font-size:18px; font-weight:800;
+  }
+  .action-sheet-close{
+    width:34px; height:34px; border-radius:50%; background: rgba(255,255,255,0.06); border:1px solid var(--stroke); display:flex; align-items:center; justify-content:center; color:var(--text-2); cursor:pointer;
+  }
+  .action-sheet-body{
+    padding:8px 4px 14px; color:var(--text-2); line-height:1.7; font-size:14px;
+  }
+  .action-sheet-actions{
+    display:flex; gap:10px; margin-top:6px;
+  }
+  .action-btn{
+    flex:1; border:none; border-radius:14px; padding:12px 14px; font-family:inherit; font-size:14px; font-weight:700; cursor:pointer; transition: transform .12s ease, filter .15s ease;
+  }
+  .action-btn:active{ transform: translateY(1px) scale(0.99); }
+  .action-btn.secondary{ background: rgba(255,255,255,0.06); color: var(--text-1); border:1px solid var(--stroke); }
+  .action-btn.primary{ background: linear-gradient(135deg,#ff5c7a,#ff8c5c); color:white; box-shadow: 0 12px 30px rgba(255,92,122,0.28); }
+  .action-btn.primary.warning{ background: linear-gradient(135deg,#ffb74a,#ff7a18); }
   .delete-choice-btn:hover{ background: rgba(255,92,122,0.08); border-color: rgba(255,92,122,0.35); }
   .delete-choice-btn .dc-icon{
     width:38px; height:38px; border-radius:11px; flex-shrink:0;
@@ -1382,6 +1432,16 @@ function renderChatPanel(c){
     const sendBtn = document.getElementById('sendBtn');
     const send = () => sendMessage(c, input);
     sendBtn.onclick = send;
+    input.setAttribute('autofocus', 'autofocus');
+    input.setAttribute('spellcheck', 'false');
+    input.addEventListener('focus', ()=>{
+      const composerBox = input.closest('.composer-box');
+      if(composerBox) composerBox.classList.add('focused');
+    });
+    input.addEventListener('blur', ()=>{
+      const composerBox = input.closest('.composer-box');
+      if(composerBox) composerBox.classList.remove('focused');
+    });
     input.addEventListener('keydown', e=>{
       if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
     });
@@ -1389,6 +1449,11 @@ function renderChatPanel(c){
       input.style.height='auto';
       input.style.height = Math.min(input.scrollHeight,120)+'px';
     });
+    setTimeout(()=>{
+      input.focus();
+      input.style.height='auto';
+      input.style.height = Math.min(input.scrollHeight,120)+'px';
+    }, 40);
   }
 }
 
@@ -1407,6 +1472,39 @@ function renderMessages(c){
     `;
   });
   wrap.scrollTop = wrap.scrollHeight;
+}
+
+function showActionSheet({ title, message, confirmText, cancelText = 'انصراف', danger = false, onConfirm }){
+  const sheet = document.createElement('div');
+  sheet.className = 'action-sheet';
+  sheet.innerHTML = `
+    <div class="action-sheet-card">
+      <div class="action-sheet-header">
+        <div class="action-sheet-title">${title}</div>
+        <div class="action-sheet-close" aria-label="بستن">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="action-sheet-body">${message}</div>
+      <div class="action-sheet-actions">
+        <button class="action-btn ${danger ? 'primary warning' : 'primary'}" type="button">${confirmText}</button>
+        <button class="action-btn secondary" type="button">${cancelText}</button>
+      </div>
+    </div>
+  `;
+
+  const close = () => sheet.remove();
+  sheet.addEventListener('click', (e) => {
+    if (e.target === sheet) close();
+  });
+  sheet.querySelector('.action-sheet-close').onclick = close;
+  sheet.querySelector('.action-btn.secondary').onclick = close;
+  sheet.querySelector('.action-btn.primary').onclick = () => {
+    close();
+    if (typeof onConfirm === 'function') onConfirm();
+  };
+
+  document.body.appendChild(sheet);
 }
 
 function sendMessage(c, input){
@@ -2233,14 +2331,25 @@ function toggleBlock(c){
   if(c.blocked){
     c.blocked = false;
     showToast(`مسدودیت ${c.name} رفع شد`);
-  } else {
-    if(!confirm(`آیا از مسدود کردن ${c.name} مطمئن هستید؟ دیگر نمی‌توانید برای این کاربر پیام ارسال کنید.`)) return;
-    c.blocked = true;
-    showToast(`${c.name} مسدود شد`);
+    persistChats();
+    if(activeChat===c.id) renderChatPanel(c);
+    renderChatList(document.getElementById('searchInput').value);
+    return;
   }
-  persistChats();
-  if(activeChat===c.id) renderChatPanel(c);
-  renderChatList(document.getElementById('searchInput').value);
+
+  showActionSheet({
+    title: 'مسدود کردن کاربر',
+    message: `آیا مطمئن هستید که می‌خواهید ${c.name} را مسدود کنید؟ بعد از این، پیام‌گذاری با این کاربر برای شما غیرفعال می‌شود.`,
+    confirmText: 'مسدود کن',
+    danger: true,
+    onConfirm: () => {
+      c.blocked = true;
+      persistChats();
+      if(activeChat===c.id) renderChatPanel(c);
+      renderChatList(document.getElementById('searchInput').value);
+      showToast(`${c.name} مسدود شد`);
+    }
+  });
 }
 
 function openDeleteChatModal(c){
@@ -2298,13 +2407,27 @@ function openDeleteChatModal(c){
 
   document.getElementById('delForMeBtn').addEventListener('click', (ev) => {
     ev.stopPropagation();
-    if(!confirm(`گفتگو با «${c.name}» فقط از لیست شما حذف شود؟`)) return;
-    performDelete('گفتگو از لیست شما حذف شد');
+    showActionSheet({
+      title: 'حذف فقط برای من',
+      message: `گفتگو با «${c.name}» فقط از لیست شما حذف شود؟`,
+      confirmText: 'حذف کن',
+      danger: true,
+      onConfirm: () => {
+        performDelete('گفتگو از لیست شما حذف شد');
+      }
+    });
   });
   document.getElementById('delForBothBtn').addEventListener('click', (ev) => {
     ev.stopPropagation();
-    if(!confirm(`گفتگو با «${c.name}» برای همه حذف شود؟ این عملیات غیرقابل بازگشت است.`)) return;
-    performDelete(isGroupOrChannel ? `${otherLabel} حذف شد` : 'گفتگو برای هر دو طرف حذف شد');
+    showActionSheet({
+      title: isGroupOrChannel ? `حذف ${otherLabel}` : 'حذف برای هر دو طرف',
+      message: isGroupOrChannel ? `آیا مطمئن هستید که ${otherLabel} «${c.name}» برای همه حذف شود؟` : `آیا مطمئن هستید که گفتگو با «${c.name}» برای هر دو طرف حذف شود؟`,
+      confirmText: 'تأیید حذف',
+      danger: true,
+      onConfirm: () => {
+        performDelete(isGroupOrChannel ? `${otherLabel} حذف شد` : 'گفتگو برای هر دو طرف حذف شد');
+      }
+    });
   });
 
   const escHandler = (e) => { if(e.key==='Escape'){ close(); document.removeEventListener('keydown', escHandler); } };
