@@ -13,11 +13,11 @@ app.get('/health', (_req, res) => {
 });
 
 app.get('/manifest.webmanifest', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'manifest.webmanifest'));
+  res.sendFile(path.join(__dirname, 'dist', 'manifest.webmanifest'));
 });
 
 app.get('/sw.js', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'sw.js'));
+  res.sendFile(path.join(__dirname, 'dist', 'sw.js'));
 });
 
 app.get('/', (_req, res) => {
