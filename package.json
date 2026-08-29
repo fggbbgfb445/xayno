@@ -1,0 +1,13 @@
+{
+  "name": "zart-messenger",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zart Messenger static app ready for Railway deployment",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
