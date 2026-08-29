@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>پیام‌رسان · GreenChat</title>
+<title>زارت · پیام‌رسان</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-deep:#040806;
-    --bg-panel: rgba(12, 18, 15, 0.74);
-    --bg-panel-solid:#0e1712;
-    --stroke: rgba(180, 255, 210, 0.12);
-    --accent-1:#2ee67d;
-    --accent-2:#8ef5b9;
-    --accent-grad: linear-gradient(135deg,#1fc96b 0%, #5eea9a 52%, #d8ffe8 100%);
-    --text-1:#f1fff6;
-    --text-2:#b3d9c2;
-    --text-3:#6f8f7a;
-    --bubble-them:#122018;
-    --online:#57f39a;
-    --danger:#ff6b71;
+    --bg-deep:#080a14;
+    --bg-panel: rgba(20,23,40,0.66);
+    --bg-panel-solid:#12162a;
+    --stroke: rgba(255,255,255,0.08);
+    --accent-1:#7c5cff;
+    --accent-2:#00d4ff;
+    --accent-grad: linear-gradient(135deg,#7c5cff 0%, #4f7bff 55%, #00d4ff 100%);
+    --text-1:#f1f3fb;
+    --text-2:#9298b3;
+    --text-3:#5c6280;
+    --bubble-them:#181d34;
+    --online:#3ee089;
+    --danger:#ff5c7a;
     --radius-lg: 22px;
     --radius-md: 16px;
     --radius-sm: 10px;
@@ -47,19 +47,17 @@
     mix-blend-mode: screen;
   }
   .aurora span:nth-child(1){
-    width:520px; height:520px; background:#20d66c;
+    width:520px; height:520px; background:#7c5cff;
     top:-160px; right:-120px;
-    opacity:0.42;
     animation: float1 22s ease-in-out infinite;
   }
   .aurora span:nth-child(2){
-    width:460px; height:460px; background:#89f7b5;
+    width:460px; height:460px; background:#00d4ff;
     bottom:-160px; left:-100px;
-    opacity:0.28;
     animation: float2 26s ease-in-out infinite;
   }
   .aurora span:nth-child(3){
-    width:340px; height:340px; background:#b8ffd9;
+    width:340px; height:340px; background:#ff5c9d;
     top:40%; left:35%;
     opacity:0.16;
     animation: float3 30s ease-in-out infinite;
@@ -205,69 +203,23 @@
     display:flex; align-items:center; gap:12px;
     border-bottom:1px solid var(--stroke);
   }
-  .chat-user-toggle{
-    display:flex; align-items:center; gap:12px;
-    flex:1; min-width:0;
-    padding:6px 8px;
-    border-radius:16px;
-    cursor:pointer;
-    transition: background .16s ease;
-  }
-  .chat-user-toggle:hover{ background: rgba(255,255,255,0.03); }
   .chat-head .info{ flex:1; min-width:0; }
   .chat-head .name{ font-size:15px; font-weight:700; }
   .chat-head .status{ font-size:12.5px; color: var(--online); margin-top:2px; }
   .chat-head .status.offline{ color: var(--text-3); }
-  .head-actions{ display:flex; gap:8px; }
-
-  .profile-overlay{
-    position:fixed; inset:0; z-index:40;
-    display:none; align-items:center; justify-content:center;
-    padding:24px; background: rgba(4, 8, 6, 0.56);
-    backdrop-filter: blur(8px);
+  .head-actions{ display:flex; gap:8px; align-items:center; }
+  .streak-pill{
+    display:flex; align-items:center; justify-content:center; gap:4px;
+    min-width:46px; padding:6px 8px; border-radius:999px;
+    background: rgba(255,166,0,0.12); border:1px solid rgba(255,166,0,0.4);
+    color: #ffb648; font-size:12px; font-weight:800; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
   }
-  .profile-overlay.open{ display:flex; }
-  .profile-panel{
-    width:min(430px, 92vw);
-    background: linear-gradient(180deg, rgba(17,24,18,0.96), rgba(10,15,12,0.96));
-    border:1px solid var(--stroke);
-    border-radius:24px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
-    overflow:hidden;
+  .streak-flame{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:18px; height:18px; border-radius:50%;
+    background: linear-gradient(180deg,#ffbf6d,#ff7d2a); color:#fff;
+    font-size:11px; box-shadow: 0 6px 12px rgba(255,122,34,0.35);
   }
-  .profile-header{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:18px 20px 12px; border-bottom:1px solid var(--stroke);
-  }
-  .profile-header-title{ font-weight:700; font-size:16px; }
-  .profile-body{ padding:20px; }
-  .profile-hero{ display:flex; align-items:center; gap:16px; margin-bottom:20px; }
-  .profile-avatar{
-    width:72px; height:72px; border-radius:20px; display:flex; align-items:center; justify-content:center;
-    font-weight:800; font-size:22px; color:#fff; background: var(--accent-grad);
-    box-shadow: 0 14px 28px rgba(45, 196, 104, 0.28);
-  }
-  .profile-name-wrap{ min-width:0; }
-  .profile-name{ font-size:20px; font-weight:800; }
-  .profile-role{ color: var(--text-2); font-size:13px; margin-top:4px; }
-  .profile-id-box{
-    background: rgba(255,255,255,0.04); border:1px solid var(--stroke); border-radius:14px;
-    padding:12px 14px; margin-bottom:16px;
-  }
-  .profile-label{ font-size:11px; color: var(--text-3); margin-bottom:6px; }
-  .profile-id{ font-size:17px; font-weight:700; letter-spacing:0.6px; color: var(--text-1); }
-  .profile-meta{ display:grid; gap:12px; }
-  .meta-item{
-    background: rgba(255,255,255,0.03); border:1px solid var(--stroke); border-radius:12px;
-    padding:10px 12px;
-  }
-  .meta-item span{ display:block; font-size:11px; color: var(--text-3); margin-bottom:4px; }
-  .meta-item strong{ font-size:14px; color: var(--text-1); }
-  .profile-bio{
-    background: rgba(255,255,255,0.03); border:1px solid var(--stroke); border-radius:12px;
-    padding:12px; color: var(--text-2); line-height:1.8; font-size:13px;
-  }
-
   .messages{
     flex:1; overflow-y:auto;
     padding:26px 30px;
@@ -360,15 +312,544 @@
   .send-btn:hover{ transform: scale(1.06); }
   .send-btn:active{ transform: scale(0.94); }
 
+  .channel-readonly-notice{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    padding:16px 22px 22px;
+    color:var(--text-3); font-size:13px;
+  }
+
   /* scrollbars */
   ::-webkit-scrollbar{ width:6px; }
   ::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius:6px; }
   ::-webkit-scrollbar-track{ background:transparent; }
 
+  /* ---------- Bottom glass nav (Telegram-style) ---------- */
+  .bottom-nav{
+    position:absolute;
+    bottom:16px; left:50%; transform:translateX(-50%);
+    z-index:10;
+    display:flex; gap:8px;
+    padding:8px;
+    background: rgba(30,32,50,0.55);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius: 26px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .nav-btn{
+    position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:4px;
+    width:88px; padding:10px 8px 9px;
+    border-radius:19px;
+    cursor:pointer;
+    color: var(--text-2);
+    transition: background .2s ease, color .2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-btn svg{ transition: transform .2s ease; }
+  .nav-btn .nav-label{ font-size:11.5px; font-weight:700; }
+  .nav-btn:hover{ background: rgba(255,255,255,0.05); }
+  .nav-btn.active{
+    background: rgba(255,255,255,0.09);
+    color: var(--accent-2);
+  }
+  .nav-btn.active svg{ transform: translateY(-1px) scale(1.05); }
+  .nav-badge{
+    position:absolute; top:2px; left:14px;
+    background: var(--danger);
+    color:#fff; font-size:10.5px; font-weight:800;
+    min-width:19px; height:19px; border-radius:999px;
+    display:flex; align-items:center; justify-content:center;
+    padding:0 5px;
+    box-shadow: 0 4px 10px rgba(255,92,122,0.5);
+    border: 2px solid rgba(30,32,50,0.9);
+  }
+
+  .sidebar{ position:relative; }
+  .sidebar-scroll{ flex:1; overflow-y:auto; padding-bottom:78px; display:flex; flex-direction:column; }
+
+  /* ---------- Settings / Profile / Theme views ---------- */
+  .settings-view{
+    position:absolute; inset:0; z-index:5;
+    background: var(--bg-panel-solid);
+    display:flex; flex-direction:column;
+    animation: slideIn .22s ease;
+  }
+  @keyframes slideIn{
+    from{ opacity:0; transform: translateX(14px); }
+    to{ opacity:1; transform: translateX(0); }
+  }
+  .settings-head{
+    display:flex; align-items:center; gap:12px;
+    padding:20px 20px 16px;
+    border-bottom:1px solid var(--stroke);
+  }
+  .settings-head .title{ font-size:17px; font-weight:800; flex:1; }
+  .settings-body{ flex:1; overflow-y:auto; padding:18px 18px 90px; }
+
+  .settings-group{
+    background: rgba(255,255,255,0.03);
+    border:1px solid var(--stroke);
+    border-radius: var(--radius-md);
+    overflow:hidden;
+    margin-bottom:18px;
+  }
+  .settings-row{
+    display:flex; align-items:center; gap:14px;
+    padding:15px 16px;
+    cursor:pointer;
+    transition: background .15s ease;
+    border-bottom:1px solid var(--stroke);
+  }
+  .settings-row:last-child{ border-bottom:none; }
+  .settings-row:hover{ background: rgba(255,255,255,0.04); }
+  .settings-row .row-icon{
+    width:38px; height:38px; border-radius:11px;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; flex-shrink:0;
+  }
+  .settings-row .row-text{ flex:1; min-width:0; }
+  .settings-row .row-title{ font-size:14.5px; font-weight:600; }
+  .settings-row .row-sub{ font-size:12px; color:var(--text-3); margin-top:1px; }
+  .settings-row .row-chevron{ color:var(--text-3); flex-shrink:0; transform:scaleX(-1); }
+
+  /* profile edit */
+  .profile-edit-top{ display:flex; flex-direction:column; align-items:center; padding:10px 0 22px; }
+  .avatar-edit-wrap{ position:relative; width:100px; height:100px; }
+  .avatar-edit-wrap .avatar{ width:100px; height:100px; font-size:34px; background-size:cover; background-position:center; }
+  .avatar-edit-btn{
+    position:absolute; bottom:-2px; left:-2px;
+    width:32px; height:32px; border-radius:50%;
+    background: var(--accent-grad);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; cursor:pointer;
+    border:3px solid var(--bg-panel-solid);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+  }
+  .avatar-color-picker{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+    margin-top:16px; padding:14px; width:100%;
+    background: rgba(255,255,255,0.03);
+    border:1px solid var(--stroke);
+    border-radius: var(--radius-md);
+  }
+  .swatch{
+    width:38px; height:38px; border-radius:50%;
+    cursor:pointer; border:2.5px solid transparent;
+    transition: transform .15s ease, border-color .15s ease;
+    flex-shrink:0;
+  }
+  .swatch:hover{ transform: scale(1.08); }
+  .swatch.selected{ border-color:#fff; transform: scale(1.08); }
+
+  .field-group{ margin-bottom:14px; }
+  .field-label{ font-size:12.5px; color:var(--text-3); margin-bottom:7px; display:block; }
+  .field-input-wrap{
+    display:flex; align-items:center; gap:8px;
+    background: rgba(255,255,255,0.04);
+    border:1px solid var(--stroke);
+    border-radius: var(--radius-md);
+    padding:12px 14px;
+  }
+  .field-input-wrap.id-field{ direction:ltr; }
+  .field-input-wrap span.at{ color:var(--text-3); font-weight:700; flex-shrink:0; }
+  .field-input-wrap input{
+    flex:1; background:none; border:none; outline:none;
+    color:var(--text-1); font-family:inherit; font-size:14.5px;
+    min-width:0;
+  }
+  .field-hint{ font-size:11.5px; color:var(--text-3); margin-top:6px; padding:0 2px; }
+  .field-hint.taken{ color:var(--danger); }
+  .field-hint.ok{ color:var(--online); }
+
+  .settings-save-btn{
+    width:100%; margin-top:6px;
+    padding:13px; border-radius: var(--radius-md);
+    border:none; cursor:pointer;
+    background: var(--accent-grad); color:#fff;
+    font-family:inherit; font-size:14.5px; font-weight:700;
+    box-shadow: 0 8px 20px rgba(124,92,255,0.35);
+    transition: filter .15s ease, transform .1s ease;
+  }
+  .settings-save-btn:hover{ filter:brightness(1.08); }
+  .settings-save-btn:active{ transform: scale(0.98); }
+  .settings-save-btn:disabled{ opacity:0.5; cursor:not-allowed; filter:none; }
+
+  .settings-save-btn.ghost-danger{
+    background: rgba(255,92,122,0.12);
+    color: var(--danger);
+    box-shadow:none;
+    border:1.5px solid rgba(255,92,122,0.3);
+  }
+  .settings-save-btn.ghost-danger:hover{ background: rgba(255,92,122,0.2); filter:none; }
+
+  .hidden-file-input{ display:none; }
+
+  .radio-group{ display:flex; flex-direction:column; gap:10px; }
+  .radio-option{
+    display:flex; align-items:center; gap:12px;
+    padding:13px 14px;
+    background: rgba(255,255,255,0.03);
+    border:1.5px solid var(--stroke);
+    border-radius: var(--radius-md);
+    cursor:pointer;
+    transition: all .15s ease;
+  }
+  .radio-option.selected{ border-color: var(--accent-2); background: rgba(0,212,255,0.06); }
+  .radio-option .radio-dot{
+    width:20px; height:20px; border-radius:50%;
+    border:2px solid var(--text-3); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    transition: border-color .15s ease;
+  }
+  .radio-option.selected .radio-dot{ border-color: var(--accent-2); }
+  .radio-option .radio-dot::after{
+    content:''; width:10px; height:10px; border-radius:50%;
+    background: var(--accent-2); opacity:0; transition: opacity .15s ease;
+  }
+  .radio-option.selected .radio-dot::after{ opacity:1; }
+  .radio-option .radio-text .radio-title{ font-size:14px; font-weight:700; }
+  .radio-option .radio-text .radio-sub{ font-size:12px; color:var(--text-3); margin-top:2px; }
+
+  .id-random-row{ display:flex; gap:8px; margin-top:8px; }
+  .id-random-row button{
+    flex-shrink:0; padding:0 14px; border-radius: var(--radius-md);
+    border:1px solid var(--stroke); background: rgba(255,255,255,0.05);
+    color:var(--text-1); font-family:inherit; font-size:12.5px; font-weight:600;
+    cursor:pointer; display:flex; align-items:center; gap:6px;
+    transition: background .15s ease;
+  }
+  .id-random-row button:hover{ background: rgba(255,255,255,0.1); }
+
+  .member-type-tabs{ display:flex; gap:8px; margin-bottom:18px; }
+  .type-tab{
+    flex:1; text-align:center; padding:11px; border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.03); border:1.5px solid var(--stroke);
+    cursor:pointer; font-size:13.5px; font-weight:700; color:var(--text-2);
+    transition: all .15s ease;
+  }
+  .type-tab.selected{ background: var(--accent-grad); color:#fff; border-color:transparent; }
+
+  .save-toast{
+    position:fixed; bottom:100px; left:50%; transform:translateX(-50%);
+    background: var(--online); color:#08210f;
+    font-size:13px; font-weight:700;
+    padding:10px 20px; border-radius:999px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.4);
+    z-index:80;
+    animation: toastPop .25s ease;
+  }
+  @keyframes toastPop{
+    from{ opacity:0; transform: translateX(-50%) translateY(10px); }
+    to{ opacity:1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* theme edit */
+  .theme-section-title{
+    font-size:12.5px; color:var(--text-3); font-weight:700;
+    margin: 4px 4px 10px;
+  }
+  .theme-swatch-grid{
+    display:grid; grid-template-columns: repeat(4,1fr); gap:12px;
+    margin-bottom:24px;
+  }
+  .theme-swatch{
+    aspect-ratio:1; border-radius: var(--radius-md);
+    cursor:pointer; position:relative;
+    border:2.5px solid transparent;
+    display:flex; align-items:flex-end; justify-content:center;
+    padding-bottom:8px;
+    transition: transform .15s ease, border-color .15s ease;
+    overflow:hidden;
+  }
+  .theme-swatch:hover{ transform: translateY(-2px); }
+  .theme-swatch.selected{ border-color:#fff; }
+  .theme-swatch .check{
+    width:22px; height:22px; border-radius:50%;
+    background: rgba(0,0,0,0.35);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; opacity:0; transition: opacity .15s ease;
+  }
+  .theme-swatch.selected .check{ opacity:1; }
+
+  .bg-swatch-grid{
+    display:grid; grid-template-columns: repeat(4,1fr); gap:12px;
+  }
+  .bg-swatch{
+    aspect-ratio:1; border-radius: var(--radius-md);
+    cursor:pointer; position:relative;
+    border:2.5px solid transparent;
+    display:flex; align-items:center; justify-content:center;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .bg-swatch:hover{ transform: translateY(-2px); }
+  .bg-swatch.selected{ border-color: var(--accent-2); }
+  .bg-swatch .check{
+    width:22px; height:22px; border-radius:50%;
+    background: rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; opacity:0; transition: opacity .15s ease;
+  }
+  .bg-swatch.selected .check{ opacity:1; }
+
   .empty-state{
     flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
     color:var(--text-3); gap:10px;
   }
+
+  /* ---------- Profile header (clickable) ---------- */
+  .chat-head .info{ cursor:pointer; border-radius:10px; padding:4px 6px; margin:-4px -6px; transition: background .15s ease; }
+  .chat-head .avatar{ cursor:pointer; }
+  .chat-head .info:hover{ background: rgba(255,255,255,0.05); }
+
+  /* ---------- Profile modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:50;
+    background: rgba(4,5,12,0.6);
+    backdrop-filter: blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+    animation: fadeIn .18s ease;
+  }
+  @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+  .profile-modal{
+    width:100%; max-width:380px;
+    background: var(--bg-panel-solid);
+    border:1px solid var(--stroke);
+    border-radius: var(--radius-lg);
+    overflow:hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    animation: popModal .22s cubic-bezier(.2,.9,.3,1.2);
+  }
+  @keyframes popModal{
+    from{ opacity:0; transform: translateY(14px) scale(0.96); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+  }
+  .profile-cover{
+    height:110px;
+    background: var(--accent-grad);
+    position:relative;
+  }
+  .profile-close{
+    position:absolute; top:12px; left:12px;
+    width:32px; height:32px; border-radius:50%;
+    background: rgba(0,0,0,0.28);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; cursor:pointer;
+    border:1px solid rgba(255,255,255,0.2);
+  }
+  .profile-close:hover{ background: rgba(0,0,0,0.42); }
+  .profile-body{ padding:0 24px 24px; text-align:center; }
+  .profile-avatar-big{
+    width:96px; height:96px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:32px; color:#fff;
+    margin:-48px auto 12px;
+    border:4px solid var(--bg-panel-solid);
+    position:relative;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.4);
+  }
+  .profile-avatar-big .dot{
+    position:absolute; bottom:4px; left:4px;
+    width:18px; height:18px; border-radius:50%;
+    background: var(--online);
+    border:3px solid var(--bg-panel-solid);
+  }
+  .profile-name{ font-size:19px; font-weight:800; }
+  .profile-status{ font-size:13px; color:var(--online); margin-top:4px; }
+  .profile-status.offline{ color:var(--text-3); }
+
+  .profile-id-chip{
+    display:inline-flex; align-items:center; gap:8px;
+    margin:16px 0 4px;
+    background: rgba(255,255,255,0.05);
+    border:1px solid var(--stroke);
+    border-radius:999px;
+    padding:8px 8px 8px 16px;
+    font-size:13px; color:var(--text-2);
+  }
+  .profile-id-chip b{ color:var(--text-1); font-weight:700; direction:ltr; unicode-bidi:embed; letter-spacing:0.3px; }
+  .id-copy-btn{
+    width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(255,255,255,0.07);
+    border:1px solid var(--stroke);
+    color:var(--text-2); cursor:pointer;
+    transition: all .15s ease; flex-shrink:0;
+  }
+  .id-copy-btn:hover{ background: rgba(255,255,255,0.14); color:var(--text-1); }
+  .id-copy-btn.copied{ background: var(--online); color:#08210f; border-color:transparent; }
+
+  .profile-info-list{ margin-top:18px; text-align:right; display:flex; flex-direction:column; gap:14px; }
+  .profile-info-row{ display:flex; gap:12px; align-items:flex-start; }
+  .profile-info-row svg{ flex-shrink:0; margin-top:2px; color:var(--accent-2); opacity:0.9; }
+  .profile-info-row .label{ font-size:11.5px; color:var(--text-3); margin-bottom:2px; }
+  .profile-info-row .value{ font-size:14px; color:var(--text-1); line-height:1.5; direction:ltr; unicode-bidi:embed; text-align:right; }
+
+  .profile-actions{ display:flex; gap:10px; margin-top:20px; }
+  .profile-actions button{
+    flex:1; padding:11px; border-radius: var(--radius-md);
+    border:1px solid var(--stroke); cursor:pointer;
+    font-family:inherit; font-size:13.5px; font-weight:600;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    transition: all .15s ease;
+  }
+  .profile-actions .btn-primary{
+    background: var(--accent-grad); color:#fff; border:none;
+    box-shadow: 0 8px 18px rgba(124,92,255,0.35);
+  }
+  .profile-actions .btn-primary:hover{ filter:brightness(1.08); }
+  .profile-actions .btn-ghost{ background: rgba(255,255,255,0.04); color:var(--text-1); }
+  .profile-actions .btn-ghost:hover{ background: rgba(255,255,255,0.09); }
+
+  /* ---------- Create group/channel wizard modal ---------- */
+  .wizard-modal{
+    width:100%; max-width:400px;
+    background: var(--bg-panel-solid);
+    border:1px solid var(--stroke);
+    border-radius: var(--radius-lg);
+    overflow:hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    animation: popModal .22s cubic-bezier(.2,.9,.3,1.2);
+    max-height:88vh;
+    display:flex; flex-direction:column;
+  }
+  .wizard-head{
+    display:flex; align-items:center; gap:12px;
+    padding:18px 20px;
+    border-bottom:1px solid var(--stroke);
+  }
+  .wizard-head .title{ font-size:16px; font-weight:800; flex:1; }
+  .wizard-body{ padding:20px; overflow-y:auto; flex:1; }
+  .wizard-footer{ padding:14px 20px 20px; border-top:1px solid var(--stroke); }
+
+  .create-choice{
+    display:flex; align-items:center; gap:14px;
+    padding:16px; margin-bottom:12px;
+    background: rgba(255,255,255,0.03);
+    border:1.5px solid var(--stroke);
+    border-radius: var(--radius-md);
+    cursor:pointer;
+    transition: all .15s ease;
+  }
+  .create-choice:hover{ background: rgba(255,255,255,0.06); border-color: var(--accent-2); transform: translateY(-1px); }
+  .create-choice .cc-icon{
+    width:46px; height:46px; border-radius:14px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; color:#fff;
+  }
+  .create-choice .cc-text .cc-title{ font-size:14.5px; font-weight:700; }
+  .create-choice .cc-text .cc-sub{ font-size:12px; color:var(--text-3); margin-top:2px; }
+
+  .id-suggest-chip{
+    display:inline-flex; align-items:center; gap:6px;
+    background: rgba(0,212,255,0.1); color:var(--accent-2);
+    border:1px solid rgba(0,212,255,0.3);
+    border-radius:999px; padding:5px 12px; font-size:12px; font-weight:700;
+    cursor:pointer; margin-top:8px; direction:ltr;
+  }
+  .id-suggest-chip:hover{ background: rgba(0,212,255,0.18); }
+
+  /* member management */
+  .member-row{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 4px;
+    border-bottom:1px solid var(--stroke);
+  }
+  .member-row:last-child{ border-bottom:none; }
+  .member-row .avatar{ width:36px; height:36px; font-size:12.5px; flex-shrink:0; }
+  .member-row .m-info{ flex:1; min-width:0; }
+  .member-row .m-name{ font-size:13.5px; font-weight:600; display:flex; align-items:center; gap:6px; }
+  .role-badge{
+    font-size:10px; font-weight:700; padding:2px 8px; border-radius:999px;
+    flex-shrink:0;
+  }
+  .role-badge.owner{ background: rgba(255,183,74,0.15); color:#ffb74a; }
+  .role-badge.admin{ background: rgba(0,212,255,0.15); color:var(--accent-2); }
+  .member-row .m-actions{ display:flex; gap:6px; flex-shrink:0; }
+  .m-action-btn{
+    width:30px; height:30px; border-radius:9px;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(255,255,255,0.05);
+    border:1px solid var(--stroke);
+    color:var(--text-2); cursor:pointer;
+    transition: all .15s ease;
+  }
+  .m-action-btn:hover{ background: rgba(255,255,255,0.1); color:var(--text-1); }
+  .m-action-btn.danger:hover{ background: rgba(255,92,122,0.15); color:var(--danger); border-color: rgba(255,92,122,0.3); }
+  .m-action-btn.promote:hover{ background: rgba(0,212,255,0.15); color:var(--accent-2); border-color: rgba(0,212,255,0.3); }
+
+  .add-admin-row{
+    display:flex; align-items:center; gap:10px;
+    padding:12px 14px; margin-top:10px;
+    background: rgba(255,255,255,0.03);
+    border:1.5px dashed var(--stroke);
+    border-radius: var(--radius-md);
+    cursor:pointer; color:var(--accent-2);
+    font-size:13px; font-weight:700;
+    transition: background .15s ease;
+  }
+  .add-admin-row:hover{ background: rgba(0,212,255,0.06); }
+
+  /* ---------- Chat header context menu ---------- */
+  .ctx-menu{
+    position:fixed; z-index:55;
+    min-width:230px;
+    background: var(--bg-panel-solid);
+    border:1px solid var(--stroke);
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    padding:6px;
+    animation: popModal .16s cubic-bezier(.2,.9,.3,1.2);
+  }
+  .ctx-menu-item{
+    display:flex; align-items:center; gap:10px;
+    padding:11px 12px;
+    border-radius: var(--radius-sm);
+    cursor:pointer;
+    font-size:13.5px; font-weight:600;
+    color: var(--text-1);
+    transition: background .15s ease;
+  }
+  .ctx-menu-item:hover{ background: rgba(255,255,255,0.06); }
+  .ctx-menu-item svg{ flex-shrink:0; opacity:0.85; }
+  .ctx-menu-item.danger{ color: var(--danger); }
+  .ctx-menu-item.danger svg{ opacity:1; }
+  .ctx-menu-sep{ height:1px; background: var(--stroke); margin:6px 4px; }
+
+  .report-textarea{
+    width:100%; min-height:80px; resize:vertical;
+    background: rgba(255,255,255,0.04);
+    border:1px solid var(--stroke);
+    border-radius: var(--radius-md);
+    padding:12px 14px;
+    color:var(--text-1); font-family:inherit; font-size:13.5px;
+    outline:none; margin-top:10px; line-height:1.6;
+  }
+  .report-textarea::placeholder{ color:var(--text-3); }
+
+  .delete-choice-row{
+    display:flex; flex-direction:column; gap:10px; margin-top:6px;
+  }
+  .delete-choice-btn{
+    display:flex; align-items:center; gap:12px;
+    padding:14px 16px;
+    background: rgba(255,255,255,0.03);
+    border:1.5px solid var(--stroke);
+    border-radius: var(--radius-md);
+    cursor:pointer;
+    transition: all .15s ease;
+    text-align:right;
+  }
+  .delete-choice-btn:hover{ background: rgba(255,92,122,0.08); border-color: rgba(255,92,122,0.35); }
+  .delete-choice-btn .dc-icon{
+    width:38px; height:38px; border-radius:11px; flex-shrink:0;
+    background: rgba(255,92,122,0.15); color: var(--danger);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .delete-choice-btn .dc-title{ font-size:14px; font-weight:700; }
+  .delete-choice-btn .dc-sub{ font-size:12px; color:var(--text-3); margin-top:2px; }
 
   /* Mobile */
   .back-btn{ display:none; }
@@ -380,31 +861,172 @@
     .chat-panel{ position:absolute; inset:0; z-index:2; }
     .back-btn{ display:flex; }
   }
+
+  /* ================= AUTH SCREENS ================= */
+  .auth-wrap{
+    position:fixed; inset:0; z-index:100;
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .auth-card{
+    width:100%; max-width:400px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    border:1px solid var(--stroke);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+    padding:34px 30px 30px;
+    animation: popModal .25s cubic-bezier(.2,.9,.3,1.2);
+  }
+  .auth-brand{
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    margin-bottom:26px;
+  }
+  .auth-brand .brand-mark{ width:54px; height:54px; border-radius:16px; font-size:24px; }
+  .auth-title{ font-size:19px; font-weight:800; }
+  .auth-sub{ font-size:13px; color:var(--text-3); margin-top:4px; text-align:center; line-height:1.6; }
+
+  .auth-field{ margin-bottom:14px; }
+  .auth-field label{ font-size:12.5px; color:var(--text-3); margin-bottom:7px; display:block; }
+  .auth-input-wrap{
+    display:flex; align-items:center; gap:10px;
+    background: rgba(255,255,255,0.04);
+    border:1.5px solid var(--stroke);
+    border-radius: var(--radius-md);
+    padding:13px 15px;
+    transition: border-color .15s ease;
+  }
+  .auth-input-wrap:focus-within{ border-color: var(--accent-2); }
+  .auth-input-wrap svg{ flex-shrink:0; color:var(--text-3); }
+  .auth-input-wrap input{
+    flex:1; background:none; border:none; outline:none;
+    color:var(--text-1); font-family:inherit; font-size:14.5px;
+    direction:ltr; text-align:right;
+  }
+  .auth-input-wrap input::placeholder{ color:var(--text-3); direction:rtl; }
+  .auth-input-wrap .toggle-pass{ cursor:pointer; color:var(--text-3); flex-shrink:0; }
+  .auth-input-wrap .toggle-pass:hover{ color:var(--text-1); }
+
+  .auth-error{
+    background: rgba(255,92,122,0.1);
+    border:1px solid rgba(255,92,122,0.3);
+    color: var(--danger);
+    font-size:12.5px; font-weight:600;
+    padding:10px 14px; border-radius: var(--radius-sm);
+    margin-bottom:14px;
+    display:flex; align-items:center; gap:8px;
+  }
+
+  .auth-btn{
+    width:100%; padding:14px; border-radius: var(--radius-md);
+    border:none; cursor:pointer;
+    background: var(--accent-grad); color:#fff;
+    font-family:inherit; font-size:14.5px; font-weight:700;
+    box-shadow: 0 8px 20px rgba(124,92,255,0.35);
+    transition: filter .15s ease, transform .1s ease;
+    margin-top:6px;
+  }
+  .auth-btn:hover{ filter:brightness(1.08); }
+  .auth-btn:active{ transform: scale(0.98); }
+  .auth-btn:disabled{ opacity:0.5; cursor:not-allowed; filter:none; }
+
+  .auth-switch{
+    text-align:center; margin-top:20px;
+    font-size:13px; color:var(--text-3);
+  }
+  .auth-switch a{
+    color: var(--accent-2); font-weight:700; cursor:pointer; text-decoration:none;
+  }
+  .auth-switch a:hover{ text-decoration:underline; }
+
+  .auth-forgot{
+    text-align:left; margin-top:-6px; margin-bottom:14px;
+  }
+  .auth-forgot a{ font-size:12.5px; color:var(--accent-2); cursor:pointer; font-weight:600; }
+  .auth-forgot a:hover{ text-decoration:underline; }
+
+  .auth-back-row{
+    display:flex; align-items:center; gap:10px; margin-bottom:20px;
+  }
+  .auth-back-row .icon-btn{ flex-shrink:0; }
+  .auth-back-row .auth-title{ margin:0; }
+
+  .otp-inputs{
+    display:flex; gap:8px; justify-content:center; direction:ltr;
+    margin-bottom:18px;
+  }
+  .otp-inputs input{
+    width:46px; height:54px; text-align:center;
+    font-size:20px; font-weight:800; font-family:inherit;
+    background: rgba(255,255,255,0.04);
+    border:1.5px solid var(--stroke);
+    border-radius: var(--radius-md);
+    color:var(--text-1); outline:none;
+    transition: border-color .15s ease;
+  }
+  .otp-inputs input:focus{ border-color: var(--accent-2); }
+
+  .resend-row{
+    text-align:center; margin-bottom:16px; font-size:12.5px; color:var(--text-3);
+  }
+  .resend-row a{ color:var(--accent-2); font-weight:700; cursor:pointer; }
+  .resend-row a.disabled{ color:var(--text-3); cursor:not-allowed; pointer-events:none; }
+
+  .pass-strength{
+    display:flex; gap:4px; margin-top:8px;
+  }
+  .pass-strength span{
+    flex:1; height:4px; border-radius:2px;
+    background: rgba(255,255,255,0.08);
+    transition: background .2s ease;
+  }
 </style>
 </head>
 <body>
 
 <div class="aurora"><span></span><span></span><span></span></div>
 
-<div class="app" id="app">
+<!-- AUTH ROOT -->
+<div id="authRoot"></div>
+
+<div class="app" id="app" style="display:none;">
   <!-- SIDEBAR -->
   <div class="panel sidebar">
-    <div class="sidebar-head">
-      <div class="brand">
-        <div class="brand-mark">G</div>
-        GreenChat
+    <div class="sidebar-scroll" id="sidebarScroll">
+      <div class="sidebar-head">
+        <div class="brand">
+          <div class="brand-mark">ز</div>
+          زارت
+        </div>
+        <div class="icon-btn" id="newChatBtn" title="ساخت گروه یا کانال">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
       </div>
-      <div class="icon-btn" title="گفتگوی جدید">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <div class="search-wrap">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="searchInput" placeholder="جستجو در گفتگوها" />
+        </div>
+      </div>
+      <div class="chat-list" id="chatList"></div>
+    </div>
+
+    <!-- Settings / Profile / Theme overlay views render here -->
+    <div id="settingsRoot"></div>
+
+    <!-- Bottom glass nav -->
+    <div class="bottom-nav">
+      <div class="nav-btn active" id="navChats">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span class="nav-label">گفتگوها</span>
+        <span class="nav-badge" id="navBadge" style="display:none;">0</span>
+      </div>
+      <div class="nav-btn" id="navSettings">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 13.5a1.7 1.7 0 00.34 1.87l.06.06a2.06 2.06 0 11-2.92 2.92l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1.03 1.56V19.6a2.06 2.06 0 11-4.12 0v-.09a1.7 1.7 0 00-1.11-1.56 1.7 1.7 0 00-1.87.34l-.06.06a2.06 2.06 0 11-2.92-2.92l.06-.06a1.7 1.7 0 00.34-1.87 1.7 1.7 0 00-1.56-1.03H4.4a2.06 2.06 0 110-4.12h.09a1.7 1.7 0 001.56-1.11 1.7 1.7 0 00-.34-1.87l-.06-.06a2.06 2.06 0 112.92-2.92l.06.06a1.7 1.7 0 001.87.34h.06a1.7 1.7 0 001.03-1.56V4.4a2.06 2.06 0 114.12 0v.09a1.7 1.7 0 001.03 1.56h.06a1.7 1.7 0 001.87-.34l.06-.06a2.06 2.06 0 112.92 2.92l-.06.06a1.7 1.7 0 00-.34 1.87v.06a1.7 1.7 0 001.56 1.03h.19a2.06 2.06 0 110 4.12h-.09a1.7 1.7 0 00-1.56 1.03z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="nav-label">تنظیمات</span>
       </div>
     </div>
-    <div class="search-wrap">
-      <div class="search-box">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <input id="searchInput" placeholder="جستجو در گفتگوها" />
-      </div>
-    </div>
-    <div class="chat-list" id="chatList"></div>
   </div>
 
   <!-- CHAT PANEL -->
@@ -412,8 +1034,6 @@
     <div id="chatContent" style="display:flex; flex-direction:column; height:100%;"></div>
   </div>
 </div>
-
-<div class="profile-overlay" id="profileOverlay"></div>
 
 <script>
 const gradients = [
@@ -425,13 +1045,12 @@ const gradients = [
   'linear-gradient(135deg,#a06cff,#00d4ff)',
 ];
 
+// شناسه یکتا برای هر کاربر (شبیه یوزرنیم پیام‌رسان‌ها) — با کلیک روی پروفایل نمایش داده می‌شود
 let chats = [
   {
-    id: 1, userId: 'GCH-2041', name: 'مریم احمدی', initials: 'م‌ا', color: gradients[0], online: true, unread: 2,
-    role: 'طراح تجربه کاربری',
-    bio: 'من به طراحی رابط‌های کاربری و تجربه‌های روان و ساده علاقه‌مندم. دوست دارم محصولات را به زبان کاربران نزدیک کنم.',
-    email: 'm.ahmadi@greenchat.ir',
-    location: 'تهران, ایران',
+    id: 1, userId: 'maryam_ahmadi', name: 'مریم احمدی', initials: 'م‌ا', color: gradients[0], online: true, unread: 2,
+    isGroup:false, email:'maryam.ahmadi@gmail.com', bio:'طراح محصول، عاشق قهوه و رنگ‌های گرم ☕️', joined:'عضویت از فروردین ۱۴۰۲',
+    blocked:false, streak:0, lastStreakDate:null,
     messages: [
       {from:'them', text:'سلام! پروژه رو دیدی؟', time:'10:12'},
       {from:'me', text:'سلام مریم جان، آره الان دارم نگاش می‌کنم', time:'10:14'},
@@ -440,54 +1059,54 @@ let chats = [
     ]
   },
   {
-    id: 2, userId: 'GCH-1187', name: 'گروه توسعه‌دهنده‌ها', initials: 'گت', color: gradients[1], online:false, unread: 0,
-    role: 'تیم فنی',
-    bio: 'گروه توسعه برای پیاده‌سازی نسخه جدید پلتفرم و رفع ایرادهای فنی در حال همکاری هستند.',
-    email: 'devteam@greenchat.ir',
-    location: 'شیراز, ایران',
+    id: 2, userId: 'devteam_group', name: 'گروه توسعه‌دهنده‌ها', initials: 'گت', color: gradients[1], online:false, unread: 0,
+    isGroup:true, type:'group', visibility:'private', isAdmin:false, members:'۱۸ عضو', memberCount:18, bio:'گروه هماهنگی تیم فنی و بحث درباره‌ی ریلیزها', joined:'ساخته‌شده در بهمن ۱۴۰۱',
+    blocked:false, streak:0, lastStreakDate:null,
+    membersList:[
+      {id:'m1', name:'مریم احمدی', initials:'م‌ا', color:gradients[0], role:'admin'},
+      {id:'m2', name:'علی رضایی', initials:'ع‌ر', color:gradients[2], role:'admin'},
+      {id:'m3', name:'سارا محمدی', initials:'س‌م', color:gradients[3], role:'member'},
+      {id:'m4', name:'حسین کریمی', initials:'ح‌ک', color:gradients[5], role:'member'},
+    ],
     messages: [
       {from:'them', text:'دیپلوی نسخه جدید انجام شد ✅', time:'09:40'},
       {from:'me', text:'دمتون گرم، تست می‌کنم', time:'09:42'},
     ]
   },
   {
-    id: 3, userId: 'GCH-7392', name: 'علی رضایی', initials: 'ع‌ر', color: gradients[2], online:true, unread: 0,
-    role: 'کارآفرین دیجیتال',
-    bio: 'به ساخت محصولات کاربردی و ساده برای استفاده کاربران علاقه دارم و همیشه به جزئیات مهم توجه می‌کنم.',
-    email: 'ali.r@greenchat.ir',
-    location: 'اصفهان, ایران',
+    id: 3, userId: 'ali_rezaei', name: 'علی رضایی', initials: 'ع‌ر', color: gradients[2], online:true, unread: 0,
+    isGroup:false, email:'ali.rezaei90@gmail.com', bio:'مهندس نرم‌افزار | کوهنورد آخر هفته‌ها 🏔️', joined:'عضویت از مهر ۱۴۰۱',
+    blocked:false, streak:0, lastStreakDate:null,
     messages: [
       {from:'me', text:'فردا ساعت چند بریم بیرون؟', time:'یک روز پیش'},
       {from:'them', text:'بذار ساعت ۷ باشه بهتره', time:'یک روز پیش'},
     ]
   },
   {
-    id: 4, userId: 'GCH-9914', name: 'سارا محمدی', initials: 'س‌م', color: gradients[3], online:false, unread: 5,
-    role: 'مدیر محصول',
-    bio: 'مدیر محصولی که ترجیح می‌دهد روی نیاز کاربران و بهبود تجربه تمرکز کند.',
-    email: 'sara.m@greenchat.ir',
-    location: 'تبریز, ایران',
+    id: 4, userId: 'sara_mohammadi', name: 'سارا محمدی', initials: 'س‌م', color: gradients[3], online:false, unread: 5,
+    isGroup:false, email:'sara.mohammadi@gmail.com', bio:'مدیر محصول، همیشه در حال یادداشت‌برداری 📝', joined:'عضویت از تیر ۱۴۰۰',
+    blocked:false, streak:0, lastStreakDate:null,
     messages: [
       {from:'them', text:'فایل رو برات فرستادم', time:'دیروز'},
       {from:'them', text:'یه نگاه بنداز ببین درسته یا نه', time:'دیروز'},
     ]
   },
   {
-    id: 5, userId: 'GCH-5510', name: 'کانال طراحی', initials: 'ک‌ط', color: gradients[4], online:false, unread: 12,
-    role: 'کانال الهام‌گیری',
-    bio: 'مجموعه‌ای از ایده‌های طراحی و پالت‌های جدید برای الهام گرفتن در پروژه‌های بصری.',
-    email: 'design@greenchat.ir',
-    location: 'مشهد, ایران',
+    id: 5, userId: 'design_channel', name: 'کانال طراحی', initials: 'ک‌ط', color: gradients[4], online:false, unread: 12,
+    isGroup:true, type:'channel', visibility:'public', isAdmin:false, members:'۴۲۰ عضو', memberCount:420, bio:'کانال اشتراک الهام و منابع طراحی رابط کاربری', joined:'ساخته‌شده در آبان ۱۴۰۰',
+    blocked:false, streak:0, lastStreakDate:null,
+    membersList:[
+      {id:'m5', name:'مریم احمدی', initials:'م‌ا', color:gradients[0], role:'owner'},
+      {id:'m6', name:'سارا محمدی', initials:'س‌م', color:gradients[3], role:'member'},
+    ],
     messages: [
       {from:'them', text:'الهام بگیرید از این پالت رنگی جدید 🎨', time:'۲ روز پیش'},
     ]
   },
   {
-    id: 6, userId: 'GCH-3826', name: 'حسین کریمی', initials: 'ح‌ک', color: gradients[5], online:true, unread: 0,
-    role: 'توسعه‌دهنده فرانت‌اند',
-    bio: 'توسعه‌دهنده‌ای که عاشق ساخت رابط‌های تمیز، سریع و قابل‌به‌کارگیری برای مردم است.',
-    email: 'hossein.k@greenchat.ir',
-    location: 'کرج, ایران',
+    id: 6, userId: 'hossein_karimi', name: 'حسین کریمی', initials: 'ح‌ک', color: gradients[5], online:true, unread: 0,
+    isGroup:false, email:'hossein.karimi@gmail.com', bio:'مترجم و ویراستار، عاشق کتاب و سفر ✈️', joined:'عضویت از اسفند ۱۴۰۲',
+    blocked:false, streak:0, lastStreakDate:null,
     messages: [
       {from:'them', text:'ممنون بابت کمکت 🙏', time:'۳ روز پیش'},
       {from:'me', text:'خواهش می‌کنم، هر وقت خواستی بگو', time:'۳ روز پیش'},
@@ -495,18 +1114,168 @@ let chats = [
   },
 ];
 
-const autoReplies = [
-  'باشه، حتما بررسی می‌کنم 👍',
-  'آها متوجه شدم، ممنون که گفتی',
-  'خیلی خوبه! کِی وقت داری در موردش صحبت کنیم؟',
-  'اوکی دریافت شد ✅',
-  'جالبه، بیشتر برام توضیح بده',
+/* ---------- پروفایل کاربر خودم ---------- */
+let myProfile = {
+  name: 'کاربر من',
+  userId: 'my_username',
+  email: '',
+  color: gradients[0],
+  initials: 'کم',
+  photo: null,
+};
+
+/* ---------- حساب‌های ثبت‌شده (شبیه‌سازی بک‌اند در حافظه) ---------- */
+let registeredAccounts = {}; // email -> { password, name }
+let isLoggedIn = false;
+let pendingResetEmail = null;
+let pendingResetCode = null;
+
+/* ---------- تم برنامه (رنگ اصلی) و رنگ پس‌زمینه ---------- */
+const themePresets = [
+  { id:'violet',  label:'بنفش',   grad:'linear-gradient(135deg,#7c5cff 0%, #4f7bff 55%, #00d4ff 100%)', c2:'#00d4ff' },
+  { id:'sunset',  label:'غروب',   grad:'linear-gradient(135deg,#ff5c9d 0%, #ff8a5c 55%, #ffc65c 100%)', c2:'#ffc65c' },
+  { id:'mint',    label:'نعنایی', grad:'linear-gradient(135deg,#3ee089 0%, #00d4ff 100%)',              c2:'#3ee089' },
+  { id:'rose',    label:'رز',     grad:'linear-gradient(135deg,#ff5c7a 0%, #a06cff 100%)',              c2:'#ff5c7a' },
+  { id:'ocean',   label:'اقیانوس',grad:'linear-gradient(135deg,#4f7bff 0%, #00d4ff 55%, #3ee089 100%)', c2:'#00d4ff' },
+  { id:'gold',    label:'طلایی',  grad:'linear-gradient(135deg,#ffb74a 0%, #ff5c7a 100%)',              c2:'#ffb74a' },
+  { id:'grape',   label:'انگوری', grad:'linear-gradient(135deg,#a06cff 0%, #7c5cff 55%, #ff5c9d 100%)', c2:'#a06cff' },
+  { id:'lime',    label:'لیمویی', grad:'linear-gradient(135deg,#5cffe1 0%, #7c5cff 100%)',              c2:'#5cffe1' },
 ];
+
+function persistChats(){
+  try { localStorage.setItem('zart_chats', JSON.stringify(chats)); } catch (e) {}
+}
+
+function restoreChats(){
+  try {
+    const raw = localStorage.getItem('zart_chats');
+    if(!raw) return;
+    const saved = JSON.parse(raw);
+    if(Array.isArray(saved) && saved.length){
+      chats = saved.map(c => ({
+        ...c,
+        blocked: !!c.blocked,
+        streak: Number(c.streak || 0),
+        lastStreakDate: c.lastStreakDate ? Number(c.lastStreakDate) : null,
+        messages: Array.isArray(c.messages) ? c.messages : []
+      }));
+    }
+  } catch (e) {}
+}
+
+const bgPresets = [
+  { id:'deep',    label:'مشکی عمیق', bg:'#080a14' },
+  { id:'navy',    label:'سرمه‌ای',   bg:'#0a0f1f' },
+  { id:'charcoal',label:'زغالی',     bg:'#121212' },
+  { id:'plum',    label:'بنفش تیره', bg:'#120a1f' },
+  { id:'forest',  label:'سبز تیره',  bg:'#0a1512' },
+  { id:'maroon',  label:'زرشکی',     bg:'#170a10' },
+  { id:'slate',   label:'دودی',      bg:'#14161d' },
+  { id:'pure',    label:'مشکی خالص', bg:'#000000' },
+];
+
+let currentTheme = 'violet';
+let currentBg = 'deep';
+
+function applyTheme(themeId){
+  const t = themePresets.find(x=>x.id===themeId) || themePresets[0];
+  currentTheme = t.id;
+  document.documentElement.style.setProperty('--accent-grad', t.grad);
+  document.documentElement.style.setProperty('--accent-2', t.c2);
+}
+function applyBg(bgId){
+  const b = bgPresets.find(x=>x.id===bgId) || bgPresets[0];
+  currentBg = b.id;
+  document.documentElement.style.setProperty('--bg-deep', b.bg);
+}
+
+function totalUnread(){
+  return chats.reduce((sum,c)=>sum+(c.unread||0), 0);
+}
+function refreshNavBadge(){
+  const badge = document.getElementById('navBadge');
+  const n = totalUnread();
+  if(n>0){ badge.style.display='flex'; badge.textContent = n>99 ? '99+' : n; }
+  else{ badge.style.display='none'; }
+}
+
+function dayKey(date){
+  const d = new Date(date);
+  d.setHours(0,0,0,0);
+  return d.getTime();
+}
+
+function updateChatStreak(c, now = new Date()) {
+  if(!c || c.isGroup) {
+    c.streak = 0;
+    c.lastStreakDate = null;
+    return 0;
+  }
+
+  const today = dayKey(now);
+  const yesterday = dayKey(new Date(now.getTime() - 86400000));
+
+  if(!c.lastStreakDate){
+    c.streak = 0;
+    return 0;
+  }
+
+  const last = Number(c.lastStreakDate);
+  if(last !== today && last !== yesterday){
+    c.streak = 0;
+    c.lastStreakDate = null;
+    return 0;
+  }
+
+  return Number(c.streak || 0);
+}
+
+function applyMessageStreak(c, now = new Date()) {
+  if(!c || c.isGroup) return 0;
+  const today = dayKey(now);
+  const yesterday = dayKey(new Date(now.getTime() - 86400000));
+  const last = c.lastStreakDate ? Number(c.lastStreakDate) : null;
+
+  if(last === today){
+    c.streak = Math.max(1, Number(c.streak || 1));
+  } else if(last === yesterday){
+    c.streak = Math.max(1, Number(c.streak || 0) + 1);
+  } else {
+    c.streak = 1;
+  }
+
+  c.lastStreakDate = today;
+  return Number(c.streak || 0);
+}
+
+function syncStreaks(){
+  const now = new Date();
+  chats.forEach(c => {
+    if(c && !c.isGroup){
+      const last = c.lastStreakDate ? Number(c.lastStreakDate) : null;
+      const today = dayKey(now);
+      const yesterday = dayKey(new Date(now.getTime() - 86400000));
+      if(last !== null && last !== today && last !== yesterday){
+        c.streak = 0;
+        c.lastStreakDate = null;
+      }
+    }
+  });
+}
 
 let activeChat = null;
 const chatListEl = document.getElementById('chatList');
 const chatContent = document.getElementById('chatContent');
 const appEl = document.getElementById('app');
+const authRoot = document.getElementById('authRoot');
+
+function showToast(msg){
+  const t = document.createElement('div');
+  t.className = 'save-toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(()=> t.remove(), 1700);
+}
 
 function renderChatList(filter=''){
   chatListEl.innerHTML = '';
@@ -525,72 +1294,37 @@ function renderChatList(filter=''){
         <div class="chat-meta">
           <div class="chat-meta-top">
             <span class="chat-name">${c.name}</span>
-            <span class="chat-time">${last.time}</span>
+            <span class="chat-time">${last ? last.time : ''}</span>
           </div>
           <div class="chat-preview">
-            <span class="chat-last">${last.from==='me' ? 'شما: ' : ''}${last.text}</span>
+            <span class="chat-last">${last ? ((last.from==='me' ? 'شما: ' : '') + last.text) : 'گفتگو خالی است'}</span>
             ${c.unread>0 ? `<span class="badge">${c.unread}</span>` : ''}
           </div>
         </div>
       `;
       chatListEl.appendChild(div);
     });
+  refreshNavBadge();
+}
+
+function renderEmptyChatPanel(){
+  chatContent.innerHTML = `
+    <div class="empty-state">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" opacity="0.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.5"/></svg>
+      <p>یک گفتگو را برای شروع انتخاب کنید</p>
+    </div>
+  `;
 }
 
 function openChat(id){
   activeChat = id;
   const c = chats.find(x=>x.id===id);
+  if(!c) return;
+  syncStreaks();
   c.unread = 0;
   appEl.classList.add('chat-open');
   renderChatList(document.getElementById('searchInput').value);
   renderChatPanel(c);
-}
-
-function renderProfile(c){
-  const overlay = document.getElementById('profileOverlay');
-  overlay.innerHTML = `
-    <div class="profile-panel" role="dialog" aria-modal="true">
-      <div class="profile-header">
-        <div class="profile-header-title">پروفایل</div>
-        <button class="icon-btn" id="closeProfileBtn" title="بستن">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-      <div class="profile-body">
-        <div class="profile-hero">
-          <div class="profile-avatar" style="background:${c.color}">${c.initials}</div>
-          <div class="profile-name-wrap">
-            <div class="profile-name">${c.name}</div>
-            <div class="profile-role">${c.role}</div>
-          </div>
-        </div>
-        <div class="profile-id-box">
-          <div class="profile-label">شناسه کاربر</div>
-          <div class="profile-id">${c.userId}</div>
-        </div>
-        <div class="profile-bio">${c.bio}</div>
-        <div class="profile-meta" style="margin-top:16px;">
-          <div class="meta-item">
-            <span>موقعیت</span>
-            <strong>${c.location}</strong>
-          </div>
-          <div class="meta-item">
-            <span>ایمیل</span>
-            <strong>${c.email}</strong>
-          </div>
-          <div class="meta-item">
-            <span>وضعیت</span>
-            <strong>${c.online ? 'برخط' : 'آفلاین'}</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-  overlay.classList.add('open');
-  document.getElementById('closeProfileBtn').onclick = () => overlay.classList.remove('open');
-  overlay.onclick = (e) => {
-    if (e.target === overlay) overlay.classList.remove('open');
-  };
 }
 
 function renderChatPanel(c){
@@ -599,22 +1333,34 @@ function renderChatPanel(c){
       <div class="icon-btn back-btn" id="backBtn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="chat-user-toggle" id="profileTrigger" title="نمایش پروفایل">
-        <div class="avatar" style="width:40px;height:40px;font-size:14px;background:${c.color}">
-          ${c.initials}
-          ${c.online ? '<span class="dot" style="width:10px;height:10px;"></span>' : ''}
-        </div>
-        <div class="info">
-          <div class="name">${c.name}</div>
-          <div class="status ${c.online ? '' : 'offline'}">${c.online ? 'برخط' : 'آخرین بازدید اخیراً'}</div>
-        </div>
+      <div class="avatar" id="openProfileAvatar" style="width:40px;height:40px;font-size:14px;background:${c.color}">
+        ${c.initials}
+        ${c.online ? '<span class="dot" style="width:10px;height:10px;"></span>' : ''}
+      </div>
+      <div class="info" id="openProfileInfo">
+        <div class="name">${c.name}</div>
+        <div class="status ${c.online ? '' : 'offline'}">${c.isGroup ? c.members : (c.online ? 'برخط' : 'آخرین بازدید اخیراً')}</div>
       </div>
       <div class="head-actions">
-        <div class="icon-btn" title="تماس"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2"/></svg></div>
-        <div class="icon-btn" id="profileBtn" title="پروفایل کامل"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg></div>
+        <div class="streak-pill" id="chatStreakBadge" aria-label="توالی پیام‌ها">
+          <span class="streak-flame">🔥</span>
+          <span>${Math.max(0, Number(c.streak || 0))}</span>
+        </div>
+        <div class="icon-btn" id="chatMenuBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg></div>
       </div>
     </div>
     <div class="messages" id="messages"></div>
+    ${(c.type==='channel' && !c.isAdmin) ? `
+    <div class="channel-readonly-notice">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg>
+      فقط ادمین کانال می‌تواند پیام ارسال کند
+    </div>
+    ` : (!c.isGroup && c.blocked) ? `
+    <div class="channel-readonly-notice">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 5.5l13 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      شما این کاربر را مسدود کرده‌اید — برای ارسال پیام، مسدودیت را رفع کنید
+    </div>
+    ` : `
     <div class="composer">
       <div class="composer-box">
         <textarea id="msgInput" rows="1" placeholder="پیام بنویسید..."></textarea>
@@ -623,27 +1369,32 @@ function renderChatPanel(c){
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2l-7 20-4-9-9-4 20-7z" stroke="white" stroke-width="2" stroke-linejoin="round"/></svg>
       </button>
     </div>
+    `}
   `;
   document.getElementById('backBtn').onclick = () => appEl.classList.remove('chat-open');
-  document.getElementById('profileTrigger').onclick = () => renderProfile(c);
-  document.getElementById('profileBtn').onclick = () => renderProfile(c);
+  document.getElementById('openProfileAvatar').onclick = () => openProfile(c.id);
+  document.getElementById('openProfileInfo').onclick = () => openProfile(c.id);
+  document.getElementById('chatMenuBtn').onclick = (e) => openChatMenu(e, c);
   renderMessages(c);
 
   const input = document.getElementById('msgInput');
-  const sendBtn = document.getElementById('sendBtn');
-  const send = () => sendMessage(c, input);
-  sendBtn.onclick = send;
-  input.addEventListener('keydown', e=>{
-    if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
-  });
-  input.addEventListener('input', ()=>{
-    input.style.height='auto';
-    input.style.height = Math.min(input.scrollHeight,120)+'px';
-  });
+  if(input){
+    const sendBtn = document.getElementById('sendBtn');
+    const send = () => sendMessage(c, input);
+    sendBtn.onclick = send;
+    input.addEventListener('keydown', e=>{
+      if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
+    });
+    input.addEventListener('input', ()=>{
+      input.style.height='auto';
+      input.style.height = Math.min(input.scrollHeight,120)+'px';
+    });
+  }
 }
 
 function renderMessages(c){
   const wrap = document.getElementById('messages');
+  if(!wrap) return;
   wrap.innerHTML = '<div class="day-divider">امروز</div>';
   c.messages.forEach(m => {
     wrap.innerHTML += `
@@ -661,46 +1412,1621 @@ function renderMessages(c){
 function sendMessage(c, input){
   const text = input.value.trim();
   if(!text) return;
+
+  // فقط ادمین/مدیر می‌تواند در کانال پیام ارسال کند
+  if(c.type === 'channel' && !c.isAdmin){
+    showToast('فقط ادمین کانال می‌تواند پیام ارسال کند');
+    return;
+  }
+  if(!c.isGroup && c.blocked){
+    showToast('این کاربر مسدود است');
+    return;
+  }
+
   const now = new Date();
   const time = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
-  c.messages.push({from:'me', text, time});
+  if(!c.isGroup){
+    c.blocked = !!c.blocked;
+    c.lastStreakDate = c.lastStreakDate ? Number(c.lastStreakDate) : null;
+    applyMessageStreak(c, now);
+  }
+  c.messages.push({from:'me', text, time, date: now.toISOString()});
   input.value='';
   input.style.height='auto';
+  persistChats();
   renderMessages(c);
   renderChatList(document.getElementById('searchInput').value);
-
-  const wrap = document.getElementById('messages');
-  const typingRow = document.createElement('div');
-  typingRow.className = 'msg-row them typing-row';
-  typingRow.innerHTML = `<div class="bubble"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
-  setTimeout(()=>{
-    wrap.appendChild(typingRow);
-    wrap.scrollTop = wrap.scrollHeight;
-  }, 500);
-
-  setTimeout(()=>{
-    typingRow.remove();
-    const reply = autoReplies[Math.floor(Math.random()*autoReplies.length)];
-    const rNow = new Date();
-    const rTime = rNow.getHours().toString().padStart(2,'0')+':'+rNow.getMinutes().toString().padStart(2,'0');
-    c.messages.push({from:'them', text:reply, time:rTime});
-    renderMessages(c);
-    renderChatList(document.getElementById('searchInput').value);
-  }, 1900);
+  renderChatPanel(c);
 }
 
 document.getElementById('searchInput').addEventListener('input', e=>{
   renderChatList(e.target.value);
 });
 
-renderChatList();
-chatContent.innerHTML = `
-  <div class="empty-state">
-    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" opacity="0.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.5"/></svg>
-    <p>یک گفتگو برای شروع انتخاب کنید</p>
-  </div>
-`;
+/* ================= ساخت گروه / کانال ================= */
+let nextChatId = 100;
+
+function randomId(prefix){
+  const rand = Math.random().toString(36).slice(2, 8);
+  return `${prefix}_${rand}`;
+}
+
+document.getElementById('newChatBtn').onclick = () => openCreateChoice();
+
+function openCreateChoice(){
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="wizard-modal">
+      <div class="wizard-head">
+        <div class="title">ساخت جدید</div>
+        <div class="icon-btn" id="wizCloseBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="wizard-body">
+        <div class="create-choice" id="choiceGroup">
+          <div class="cc-icon" style="background:${gradients[1]}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-text">
+            <div class="cc-title">گروه جدید</div>
+            <div class="cc-sub">گفتگوی گروهی برای اعضا با امکان ارسال پیام همه</div>
+          </div>
+        </div>
+        <div class="create-choice" id="choiceChannel">
+          <div class="cc-icon" style="background:${gradients[4]}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l18-7-7 18-3-8-8-3z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-text">
+            <div class="cc-title">کانال جدید</div>
+            <div class="cc-sub">پخش پیام یک‌طرفه از ادمین برای مخاطبین</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) close(); });
+  document.getElementById('wizCloseBtn').onclick = close;
+  document.getElementById('choiceGroup').onclick = () => { close(); openCreateForm('group'); };
+  document.getElementById('choiceChannel').onclick = () => { close(); openCreateForm('channel'); };
+}
+
+function openCreateForm(kind){
+  const isChannel = kind === 'channel';
+  const defaultColor = gradients[Math.floor(Math.random()*gradients.length)];
+  const state = {
+    name: '',
+    visibility: 'public',
+    customId: randomId(isChannel ? 'channel' : 'group'),
+    bio: '',
+    color: defaultColor,
+  };
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="wizard-modal">
+      <div class="wizard-head">
+        <div class="icon-btn" id="wizBackBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="title">${isChannel ? 'کانال جدید' : 'گروه جدید'}</div>
+        <div class="icon-btn" id="wizCloseBtn2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="wizard-body">
+        <div class="profile-edit-top" style="padding-bottom:6px;">
+          <div class="avatar-edit-wrap" style="width:80px;height:80px;">
+            <div class="avatar" id="newAvatarPreview" style="width:80px;height:80px;font-size:26px;background:${state.color}">${isChannel ? 'ک' : 'گ'}</div>
+          </div>
+          <div class="avatar-color-picker" id="newColorPicker" style="margin-top:14px;"></div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">${isChannel ? 'نام کانال' : 'نام گروه'}</label>
+          <div class="field-input-wrap">
+            <input id="newNameInput" type="text" maxlength="30" placeholder="${isChannel ? 'مثلاً: کانال اخبار' : 'مثلاً: تیم طراحی'}" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">توضیحات (اختیاری)</label>
+          <div class="field-input-wrap">
+            <input id="newBioInput" type="text" maxlength="80" placeholder="یک توضیح کوتاه..." />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">نوع ${isChannel ? 'کانال' : 'گروه'}</label>
+          <div class="radio-group">
+            <div class="radio-option selected" id="optPublic">
+              <div class="radio-dot"></div>
+              <div class="radio-text">
+                <div class="radio-title">عمومی</div>
+                <div class="radio-sub">هر کسی با آیدی می‌تواند پیدا و عضو شود</div>
+              </div>
+            </div>
+            <div class="radio-option" id="optPrivate">
+              <div class="radio-dot"></div>
+              <div class="radio-text">
+                <div class="radio-title">خصوصی</div>
+                <div class="radio-sub">فقط با لینک دعوت می‌توان عضو شد</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group" id="idFieldGroup">
+          <label class="field-label" id="idFieldLabel">آیدی عمومی</label>
+          <div class="field-input-wrap id-field">
+            <span class="at">@</span>
+            <input id="newIdInput" type="text" maxlength="28" dir="ltr" value="${state.customId}" />
+          </div>
+          <div class="field-hint" id="newIdHint">آیدی باید یکتا باشد؛ حروف انگلیسی، عدد و آندرلاین</div>
+          <div class="id-suggest-chip" id="reRandomBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            پیشنهاد آیدی تصادفی جدید
+          </div>
+        </div>
+      </div>
+      <div class="wizard-footer">
+        <button class="settings-save-btn" id="createFinalBtn">${isChannel ? 'ساخت کانال' : 'ساخت گروه'}</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) close(); });
+  document.getElementById('wizCloseBtn2').onclick = close;
+  document.getElementById('wizBackBtn').onclick = () => { close(); openCreateChoice(); };
+
+  // color picker
+  const picker = document.getElementById('newColorPicker');
+  const avatarPreview = document.getElementById('newAvatarPreview');
+  gradients.forEach(g=>{
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (state.color===g ? ' selected' : '');
+    sw.style.background = g;
+    sw.onclick = () => {
+      state.color = g;
+      avatarPreview.style.background = g;
+      picker.querySelectorAll('.swatch').forEach(el=>el.classList.remove('selected'));
+      sw.classList.add('selected');
+    };
+    picker.appendChild(sw);
+  });
+
+  const nameInput = document.getElementById('newNameInput');
+  const bioInput = document.getElementById('newBioInput');
+  const idInput = document.getElementById('newIdInput');
+  const idHint = document.getElementById('newIdHint');
+  const idFieldGroup = document.getElementById('idFieldGroup');
+  const idFieldLabel = document.getElementById('idFieldLabel');
+  const optPublic = document.getElementById('optPublic');
+  const optPrivate = document.getElementById('optPrivate');
+
+  nameInput.addEventListener('input', ()=>{
+    avatarPreview.textContent = nameInput.value.trim() ? nameInput.value.trim().slice(0,2) : (isChannel?'ک':'گ');
+  });
+
+  function setVisibility(v){
+    state.visibility = v;
+    optPublic.classList.toggle('selected', v==='public');
+    optPrivate.classList.toggle('selected', v==='private');
+    idFieldGroup.style.display = 'block';
+    if(v==='private'){
+      idFieldLabel.textContent = 'آیدی خصوصی (تصادفی)';
+      idInput.value = randomId(isChannel ? 'channel' : 'group');
+      idInput.disabled = true;
+      idHint.textContent = 'این آیدی به‌صورت خودکار و تصادفی ساخته شده و قابل تغییر نیست';
+      idHint.className = 'field-hint';
+      document.getElementById('reRandomBtn').style.display = 'inline-flex';
+    } else {
+      idFieldLabel.textContent = 'آیدی عمومی';
+      idInput.disabled = false;
+      idHint.textContent = 'آیدی باید یکتا باشد؛ حروف انگلیسی، عدد و آندرلاین';
+      idHint.className = 'field-hint';
+      document.getElementById('reRandomBtn').style.display = 'inline-flex';
+    }
+  }
+  optPublic.onclick = () => setVisibility('public');
+  optPrivate.onclick = () => setVisibility('private');
+
+  idInput.addEventListener('input', ()=>{
+    const cleaned = idInput.value.replace(/[^a-zA-Z0-9_]/g,'').toLowerCase();
+    if(idInput.value !== cleaned) idInput.value = cleaned;
+    if(cleaned.length < 4){
+      idHint.textContent = 'آیدی باید حداقل ۴ کاراکتر باشد';
+      idHint.className = 'field-hint taken';
+    } else if(chats.some(c=>c.userId===cleaned)){
+      idHint.textContent = 'این آیدی قبلاً استفاده شده است';
+      idHint.className = 'field-hint taken';
+    } else {
+      idHint.textContent = 'این آیدی آزاد است ✓';
+      idHint.className = 'field-hint ok';
+    }
+  });
+
+  document.getElementById('reRandomBtn').onclick = () => {
+    idInput.value = randomId(isChannel ? 'channel' : 'group');
+    idInput.dispatchEvent(new Event('input'));
+  };
+
+  document.getElementById('createFinalBtn').onclick = () => {
+    const name = nameInput.value.trim();
+    if(!name){ showToast(isChannel ? 'نام کانال را وارد کنید' : 'نام گروه را وارد کنید'); return; }
+    const finalId = idInput.value.trim() || randomId(isChannel ? 'channel' : 'group');
+    if(finalId.length < 4){ showToast('آیدی معتبر نیست'); return; }
+    if(chats.some(c=>c.userId===finalId)){ showToast('این آیدی قبلاً استفاده شده است'); return; }
+
+    const newChat = {
+      id: nextChatId++,
+      userId: finalId,
+      name: name,
+      initials: name.slice(0,2),
+      color: state.color,
+      online: isChannel ? false : true,
+      unread: 0,
+      isGroup: true,
+      type: isChannel ? 'channel' : 'group',
+      visibility: state.visibility,
+      isAdmin: true,
+      members: isChannel ? '۱ عضو' : '۱ عضو (شما)',
+      memberCount: 1,
+      membersList: [
+        {id:'owner', name: myProfile.name, initials: myProfile.initials, color: myProfile.color, role:'owner'}
+      ],
+      bio: bioInput.value.trim() || (isChannel ? 'کانال جدید' : 'گروه جدید'),
+      joined: 'همین الان ساخته شد',
+      messages: [
+        {from:'them', text: isChannel ? `کانال «${name}» ساخته شد. اولین پست را منتشر کنید 🎉` : `گروه «${name}» ساخته شد. خوش آمدید! 🎉`, time: 'اکنون'}
+      ]
+    };
+    chats.unshift(newChat);
+    close();
+    renderChatList(document.getElementById('searchInput').value);
+    openChat(newChat.id);
+    showToast((isChannel ? 'کانال' : 'گروه') + ' با موفقیت ساخته شد ✓');
+  };
+
+  setVisibility('public');
+}
+
+/* ---------- Profile modal ---------- */
+function openProfile(id){
+  const c = chats.find(x=>x.id===id);
+  if(!c) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.id = 'profileOverlay';
+
+  const infoRows = c.isGroup ? `
+    <div class="profile-info-row">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div><div class="label">اعضا</div><div class="value">${c.members}</div></div>
+    </div>
+    <div class="profile-info-row">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.5-5 8-9 8-13a8 8 0 10-16 0c0 4 2.5 8 8 13z" stroke="currentColor" stroke-width="1.7"/></svg>
+      <div><div class="label">درباره</div><div class="value">${c.bio}</div></div>
+    </div>
+  ` : `
+    <div class="profile-info-row">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M2 7l10 6 10-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div><div class="label">ایمیل</div><div class="value">${c.email || '—'}</div></div>
+    </div>
+    <div class="profile-info-row">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.5-5 8-9 8-13a8 8 0 10-16 0c0 4 2.5 8 8 13z" stroke="currentColor" stroke-width="1.7"/></svg>
+      <div><div class="label">درباره</div><div class="value">${c.bio}</div></div>
+    </div>
+  `;
+
+  overlay.innerHTML = `
+    <div class="profile-modal" role="dialog" aria-modal="true">
+      <div class="profile-cover">
+        <div class="profile-close" id="profileCloseBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-avatar-big" style="background:${c.color}">
+          ${c.initials}
+          ${c.online && !c.isGroup ? '<span class="dot"></span>' : ''}
+        </div>
+        <div class="profile-name">${c.name}</div>
+        <div class="profile-status ${c.online ? '' : 'offline'}">${c.isGroup ? c.members : (c.online ? 'برخط' : 'آخرین بازدید اخیراً')}</div>
+
+        <div class="profile-id-chip">
+          آیدی: <b>@${c.userId}</b>
+          <div class="id-copy-btn" id="copyIdBtn" title="کپی آیدی">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+        </div>
+
+        <div class="profile-info-list">
+          ${infoRows}
+          <div class="profile-info-row">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <div><div class="label">${c.isGroup ? 'تاریخ ساخت' : 'تاریخ عضویت'}</div><div class="value">${c.joined}</div></div>
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          ${(c.isGroup && c.isAdmin) ? `
+          <button class="btn-primary" id="profileSettingsBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M19.4 13.5a1.7 1.7 0 00.34 1.87l.06.06a2.06 2.06 0 11-2.92 2.92l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1.03 1.56V19.6a2.06 2.06 0 11-4.12 0v-.09a1.7 1.7 0 00-1.11-1.56 1.7 1.7 0 00-1.87.34l-.06.06a2.06 2.06 0 11-2.92-2.92l.06-.06a1.7 1.7 0 00.34-1.87 1.7 1.7 0 00-1.56-1.03H4.4a2.06 2.06 0 110-4.12h.09a1.7 1.7 0 001.56-1.11 1.7 1.7 0 00-.34-1.87l-.06-.06a2.06 2.06 0 112.92-2.92l.06.06a1.7 1.7 0 001.87.34h.06a1.7 1.7 0 001.03-1.56V4.4a2.06 2.06 0 114.12 0v.09a1.7 1.7 0 001.03 1.56h.06a1.7 1.7 0 001.87-.34l.06-.06a2.06 2.06 0 112.92 2.92l-.06.06a1.7 1.7 0 00-.34 1.87v.06a1.7 1.7 0 001.56 1.03h.19a2.06 2.06 0 110 4.12h-.09a1.7 1.7 0 00-1.56 1.03z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            تنظیمات ${c.type==='channel' ? 'کانال' : 'گروه'}
+          </button>
+          ` : ''}
+          <button class="btn-ghost" id="profileCloseBtn2">بستن</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', e=>{ if(e.target === overlay) close(); });
+  document.getElementById('profileCloseBtn').onclick = close;
+  document.getElementById('profileCloseBtn2').onclick = close;
+  if(document.getElementById('profileSettingsBtn')) document.getElementById('profileSettingsBtn').onclick = () => { close(); openGroupChannelSettings(c.id); };
+
+  document.getElementById('copyIdBtn').onclick = () => {
+    const btn = document.getElementById('copyIdBtn');
+    const text = '@' + c.userId;
+    const done = () => {
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      setTimeout(()=>{
+        btn.classList.remove('copied');
+        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.8"/></svg>';
+      }, 1400);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(done);
+    } else {
+      done();
+    }
+  };
+
+  const escHandler = (e) => { if(e.key==='Escape'){ close(); document.removeEventListener('keydown', escHandler); } };
+  document.addEventListener('keydown', escHandler);
+}
+
+/* ---------- Group / Channel management (admin only) ---------- */
+function openGroupChannelSettings(id){
+  const c = chats.find(x=>x.id===id);
+  if(!c) return;
+  const isChannel = c.type === 'channel';
+  const state = { name:c.name, bio:c.bio, color:c.color, visibility:c.visibility, userId:c.userId };
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="wizard-modal">
+      <div class="wizard-head">
+        <div class="icon-btn" id="gcsBackBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="title">تنظیمات ${isChannel ? 'کانال' : 'گروه'}</div>
+        <div class="icon-btn" id="gcsCloseBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="wizard-body">
+        <div class="profile-edit-top" style="padding-bottom:6px;">
+          <div class="avatar-edit-wrap" style="width:84px;height:84px;">
+            <div class="avatar" id="gcsAvatarPreview" style="width:84px;height:84px;font-size:28px;background:${state.color}">${c.initials}</div>
+          </div>
+          <div class="avatar-color-picker" id="gcsColorPicker" style="margin-top:14px;"></div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">${isChannel ? 'نام کانال' : 'نام گروه'}</label>
+          <div class="field-input-wrap">
+            <input id="gcsNameInput" type="text" maxlength="30" value="${c.name}" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">توضیحات</label>
+          <div class="field-input-wrap">
+            <input id="gcsBioInput" type="text" maxlength="80" value="${c.bio}" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">نوع ${isChannel ? 'کانال' : 'گروه'}</label>
+          <div class="radio-group">
+            <div class="radio-option" id="gcsOptPublic">
+              <div class="radio-dot"></div>
+              <div class="radio-text">
+                <div class="radio-title">عمومی</div>
+                <div class="radio-sub">هر کسی با آیدی می‌تواند پیدا و عضو شود</div>
+              </div>
+            </div>
+            <div class="radio-option" id="gcsOptPrivate">
+              <div class="radio-dot"></div>
+              <div class="radio-text">
+                <div class="radio-title">خصوصی</div>
+                <div class="radio-sub">فقط با لینک دعوت می‌توان عضو شد</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group" id="gcsIdFieldGroup">
+          <label class="field-label" id="gcsIdFieldLabel">آیدی</label>
+          <div class="field-input-wrap id-field">
+            <span class="at">@</span>
+            <input id="gcsIdInput" type="text" maxlength="28" dir="ltr" value="${c.userId}" />
+          </div>
+          <div class="field-hint" id="gcsIdHint">حروف انگلیسی، عدد و آندرلاین مجاز است</div>
+          <div class="id-suggest-chip" id="gcsRerandomBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            آیدی تصادفی جدید
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">اعضا (${(c.membersList||[]).length + 1} نفر شامل شما)</label>
+          <div class="settings-group" style="padding:6px 12px;">
+            <div class="member-row">
+              <div class="avatar" style="background:${myProfile.color}">${myProfile.initials}</div>
+              <div class="m-info">
+                <div class="m-name">${myProfile.name} <span class="role-badge owner">شما · مالک</span></div>
+              </div>
+            </div>
+            <div id="membersListWrap"></div>
+          </div>
+          <div class="add-admin-row" id="addAdminRow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM20 8v6M23 11h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            افزودن ادمین جدید
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-row" id="gcsDeleteRow" style="cursor:pointer;">
+            <div class="row-icon" style="background:var(--danger)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="row-text">
+              <div class="row-title" style="color:var(--danger)">حذف ${isChannel ? 'کانال' : 'گروه'}</div>
+              <div class="row-sub">این عملیات غیرقابل بازگشت است</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wizard-footer">
+        <button class="settings-save-btn" id="gcsSaveBtn">ذخیره تغییرات</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) close(); });
+  document.getElementById('gcsCloseBtn').onclick = close;
+  document.getElementById('gcsBackBtn').onclick = () => { close(); openProfile(c.id); };
+
+  /* ---- member list rendering ---- */
+  if(!c.membersList) c.membersList = [];
+  const membersWrap = document.getElementById('membersListWrap');
+
+  function renderMembersList(){
+    membersWrap.innerHTML = '';
+    c.membersList.forEach(m=>{
+      const row = document.createElement('div');
+      row.className = 'member-row';
+      const roleLabel = m.role==='admin' ? '<span class="role-badge admin">ادمین</span>' : '';
+      row.innerHTML = `
+        <div class="avatar" style="background:${m.color}">${m.initials}</div>
+        <div class="m-info">
+          <div class="m-name">${m.name} ${roleLabel}</div>
+        </div>
+        <div class="m-actions">
+          ${m.role!=='admin' ? `<div class="m-action-btn promote" title="ارتقا به ادمین" data-action="promote" data-id="${m.id}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 6.5L21 9l-5 4.5 1.5 7L12 17l-5.5 3.5L8 13.5 3 9l6.5-.5L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>` : `<div class="m-action-btn" title="لغو ادمینی" data-action="demote" data-id="${m.id}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>`}
+          <div class="m-action-btn danger" title="حذف از ${isChannel?'کانال':'گروه'}" data-action="remove" data-id="${m.id}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      `;
+      membersWrap.appendChild(row);
+    });
+
+    membersWrap.querySelectorAll('.m-action-btn').forEach(btn=>{
+      btn.onclick = () => {
+        const action = btn.dataset.action;
+        const mid = btn.dataset.id;
+        const member = c.membersList.find(x=>x.id===mid);
+        if(!member) return;
+        if(action==='promote'){
+          member.role = 'admin';
+          showToast(`${member.name} ادمین شد ✓`);
+        } else if(action==='demote'){
+          member.role = 'member';
+          showToast(`ادمینی ${member.name} لغو شد`);
+        } else if(action==='remove'){
+          if(confirm(`آیا از حذف ${member.name} از ${isChannel?'کانال':'گروه'} مطمئن هستید؟`)){
+            c.membersList = c.membersList.filter(x=>x.id!==mid);
+            c.memberCount = Math.max(1, (c.memberCount||1) - 1);
+            c.members = isChannel ? `${toPersianDigits(c.memberCount)} عضو` : `${toPersianDigits(c.memberCount)} عضو`;
+            renderMembersList();
+            showToast(`${member.name} حذف شد`);
+            return;
+          } else { return; }
+        }
+        renderMembersList();
+      };
+    });
+  }
+
+  function toPersianDigits(n){
+    const map = {'0':'۰','1':'۱','2':'۲','3':'۳','4':'۴','5':'۵','6':'۶','7':'۷','8':'۸','9':'۹'};
+    return String(n).replace(/[0-9]/g, d=>map[d]);
+  }
+
+  renderMembersList();
+
+  document.getElementById('addAdminRow').onclick = () => {
+    const nonAdmins = c.membersList.filter(m=>m.role!=='admin');
+    if(nonAdmins.length===0){
+      const name = prompt('نام عضو جدید برای افزودن به‌عنوان ادمین:');
+      if(!name || !name.trim()) return;
+      const newMember = { id:'m'+Date.now(), name:name.trim(), initials:name.trim().slice(0,2), color: gradients[Math.floor(Math.random()*gradients.length)], role:'admin' };
+      c.membersList.push(newMember);
+      c.memberCount = (c.memberCount||1) + 1;
+      c.members = `${toPersianDigits(c.memberCount)} عضو`;
+      renderMembersList();
+      showToast(`${newMember.name} به‌عنوان ادمین اضافه شد ✓`);
+      return;
+    }
+    const names = nonAdmins.map((m,i)=>`${i+1}. ${m.name}`).join('\n');
+    const choice = prompt(`کدام عضو ادمین شود؟ عدد را وارد کنید:\n${names}\n\nیا نام یک عضو جدید بنویسید تا اضافه و ادمین شود.`);
+    if(!choice || !choice.trim()) return;
+    const idx = parseInt(choice.trim(), 10);
+    if(!isNaN(idx) && idx>=1 && idx<=nonAdmins.length){
+      nonAdmins[idx-1].role = 'admin';
+      renderMembersList();
+      showToast(`${nonAdmins[idx-1].name} ادمین شد ✓`);
+    } else {
+      const newMember = { id:'m'+Date.now(), name:choice.trim(), initials:choice.trim().slice(0,2), color: gradients[Math.floor(Math.random()*gradients.length)], role:'admin' };
+      c.membersList.push(newMember);
+      c.memberCount = (c.memberCount||1) + 1;
+      c.members = `${toPersianDigits(c.memberCount)} عضو`;
+      renderMembersList();
+      showToast(`${newMember.name} به‌عنوان ادمین اضافه شد ✓`);
+    }
+  };
+
+  const picker = document.getElementById('gcsColorPicker');
+  const avatarPreview = document.getElementById('gcsAvatarPreview');
+  gradients.forEach(g=>{
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (state.color===g ? ' selected' : '');
+    sw.style.background = g;
+    sw.onclick = () => {
+      state.color = g;
+      avatarPreview.style.background = g;
+      picker.querySelectorAll('.swatch').forEach(el=>el.classList.remove('selected'));
+      sw.classList.add('selected');
+    };
+    picker.appendChild(sw);
+  });
+
+  const nameInput = document.getElementById('gcsNameInput');
+  const bioInput = document.getElementById('gcsBioInput');
+  const idInput = document.getElementById('gcsIdInput');
+  const idHint = document.getElementById('gcsIdHint');
+  const idLabel = document.getElementById('gcsIdFieldLabel');
+  const optPublic = document.getElementById('gcsOptPublic');
+  const optPrivate = document.getElementById('gcsOptPrivate');
+
+  nameInput.addEventListener('input', ()=>{
+    avatarPreview.textContent = nameInput.value.trim().slice(0,2) || c.initials;
+  });
+
+  function setVisibility(v, regenerateIfPrivate){
+    state.visibility = v;
+    optPublic.classList.toggle('selected', v==='public');
+    optPrivate.classList.toggle('selected', v==='private');
+    if(v==='private'){
+      idLabel.textContent = 'آیدی خصوصی (تصادفی)';
+      if(regenerateIfPrivate){
+        idInput.value = randomId(isChannel ? 'channel' : 'group');
+      }
+      idInput.disabled = true;
+      idHint.textContent = 'این آیدی تصادفی است و برای اعضای گروه/کانال قابل مشاهده نیست';
+      idHint.className = 'field-hint';
+    } else {
+      idLabel.textContent = 'آیدی عمومی';
+      idInput.disabled = false;
+      idHint.textContent = 'حروف انگلیسی، عدد و آندرلاین مجاز است';
+      idHint.className = 'field-hint';
+    }
+  }
+  optPublic.onclick = () => setVisibility('public', false);
+  optPrivate.onclick = () => setVisibility('private', true);
+  setVisibility(c.visibility, false);
+
+  idInput.addEventListener('input', ()=>{
+    const cleaned = idInput.value.replace(/[^a-zA-Z0-9_]/g,'').toLowerCase();
+    if(idInput.value !== cleaned) idInput.value = cleaned;
+    if(cleaned.length < 4){
+      idHint.textContent = 'آیدی باید حداقل ۴ کاراکتر باشد';
+      idHint.className = 'field-hint taken';
+    } else if(chats.some(x=>x.userId===cleaned && x.id!==c.id)){
+      idHint.textContent = 'این آیدی قبلاً استفاده شده است';
+      idHint.className = 'field-hint taken';
+    } else {
+      idHint.textContent = 'این آیدی آزاد است ✓';
+      idHint.className = 'field-hint ok';
+    }
+  });
+
+  document.getElementById('gcsRerandomBtn').onclick = () => {
+    idInput.value = randomId(isChannel ? 'channel' : 'group');
+    idInput.dispatchEvent(new Event('input'));
+  };
+
+  document.getElementById('gcsDeleteRow').onclick = () => {
+    if(confirm(`آیا از حذف ${isChannel ? 'کانال' : 'گروه'} «${c.name}» مطمئن هستید؟ این عملیات غیرقابل بازگشت است.`)){
+      chats = chats.filter(x=>x.id!==c.id);
+      close();
+      if(activeChat===c.id){ activeChat=null; appEl.classList.remove('chat-open'); renderEmptyChatPanel(); }
+      renderChatList(document.getElementById('searchInput').value);
+      showToast((isChannel ? 'کانال' : 'گروه') + ' حذف شد');
+    }
+  };
+
+  document.getElementById('gcsSaveBtn').onclick = () => {
+    const newName = nameInput.value.trim();
+    if(!newName){ showToast('نام نمی‌تواند خالی باشد'); return; }
+    const newId = idInput.value.trim();
+    if(newId.length < 4){ showToast('آیدی معتبر نیست'); return; }
+    if(chats.some(x=>x.userId===newId && x.id!==c.id)){ showToast('این آیدی قبلاً استفاده شده است'); return; }
+
+    c.name = newName;
+    c.initials = newName.slice(0,2);
+    c.bio = bioInput.value.trim() || c.bio;
+    c.color = state.color;
+    c.visibility = state.visibility;
+    c.userId = newId;
+
+    close();
+    renderChatList(document.getElementById('searchInput').value);
+    if(activeChat===c.id) renderChatPanel(c);
+    showToast('تغییرات ذخیره شد ✓');
+  };
+
+  const escHandler = (e) => { if(e.key==='Escape'){ close(); document.removeEventListener('keydown', escHandler); } };
+  document.addEventListener('keydown', escHandler);
+}
+
+/* ---------- Chat header 3-dot menu: report / block / delete ---------- */
+function closeCtxMenu(){
+  const existing = document.getElementById('activeCtxMenu');
+  if(existing) existing.remove();
+  document.removeEventListener('click', outsideCtxClick, true);
+  document.removeEventListener('keydown', ctxEscHandler);
+}
+function outsideCtxClick(e){
+  const menu = document.getElementById('activeCtxMenu');
+  if(menu && !menu.contains(e.target)) closeCtxMenu();
+}
+function ctxEscHandler(e){ if(e.key==='Escape') closeCtxMenu(); }
+
+function openChatMenu(e, c){
+  e.stopPropagation();
+  closeCtxMenu();
+
+  const items = [];
+  if(!c.isGroup){
+    items.push({
+      label:'گزارش کاربر',
+      icon:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L14.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      onClick: () => { closeCtxMenu(); openReportModal(c); }
+    });
+    items.push({
+      label: c.blocked ? 'رفع مسدودیت کاربر' : 'مسدود کردن کاربر',
+      icon:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 5.5l13 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+      onClick: () => { closeCtxMenu(); toggleBlock(c); }
+    });
+    items.push({ sep:true });
+  }
+  items.push({
+    label:'حذف گفتگو',
+    danger:true,
+    icon:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    onClick: () => { closeCtxMenu(); openDeleteChatModal(c); }
+  });
+
+  const menu = document.createElement('div');
+  menu.className = 'ctx-menu';
+  menu.id = 'activeCtxMenu';
+  menu.innerHTML = items.map((it, idx) => it.sep
+    ? `<div class="ctx-menu-sep"></div>`
+    : `<div class="ctx-menu-item${it.danger ? ' danger':''}" data-idx="${idx}">${it.icon}<span>${it.label}</span></div>`
+  ).join('');
+  document.body.appendChild(menu);
+
+  const rect = e.currentTarget.getBoundingClientRect();
+  const menuWidth = 240;
+  let left = rect.left + rect.width - menuWidth;
+  if(left < 10) left = 10;
+  if(left + menuWidth > window.innerWidth - 10) left = window.innerWidth - menuWidth - 10;
+  let top = rect.bottom + 8;
+  const menuHeightEstimate = items.length * 46 + 20;
+  if(top + menuHeightEstimate > window.innerHeight - 10){
+    top = Math.max(10, rect.top - menuHeightEstimate - 8);
+  }
+  menu.style.left = left + 'px';
+  menu.style.top = top + 'px';
+
+  menu.querySelectorAll('.ctx-menu-item').forEach(el=>{
+    const idx = parseInt(el.dataset.idx,10);
+    el.addEventListener('click', (ev)=>{ ev.stopPropagation(); items[idx].onClick(); });
+  });
+
+  // Outside click closes the menu — attached on 'click' (bubble phase) on the NEXT tick
+  // so it never races with the menu-item's own mousedown/click, and stopPropagation()
+  // on the item (bubble phase) correctly prevents this handler from firing at all.
+  setTimeout(()=>{
+    document.addEventListener('click', outsideCtxClick, true);
+    document.addEventListener('keydown', ctxEscHandler);
+  },0);
+}
+
+function openReportModal(c){
+  const reasons = ['هرزنامه یا تبلیغات', 'محتوای نامناسب یا توهین‌آمیز', 'مزاحمت یا آزار', 'حساب جعلی', 'کلاهبرداری', 'موردی دیگر'];
+  let selectedReason = null;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="wizard-modal">
+      <div class="wizard-head">
+        <div class="title">گزارش ${c.name}</div>
+        <div class="icon-btn" id="reportCloseBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="wizard-body">
+        <div class="field-label" style="margin-bottom:10px;">دلیل گزارش را انتخاب کنید</div>
+        <div class="radio-group" id="reportReasonList">
+          ${reasons.map((r,i)=>`
+            <div class="radio-option" data-idx="${i}">
+              <div class="radio-dot"></div>
+              <div class="radio-text"><div class="radio-title">${r}</div></div>
+            </div>
+          `).join('')}
+        </div>
+        <textarea class="report-textarea" id="reportDetails" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
+      </div>
+      <div class="wizard-footer">
+        <button class="settings-save-btn" id="reportSubmitBtn" style="background:linear-gradient(135deg,#ff5c7a,#ff8a5c);">ارسال گزارش</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) close(); });
+  document.getElementById('reportCloseBtn').onclick = close;
+
+  const list = document.getElementById('reportReasonList');
+  list.querySelectorAll('.radio-option').forEach(el=>{
+    el.onclick = () => {
+      list.querySelectorAll('.radio-option').forEach(x=>x.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedReason = reasons[parseInt(el.dataset.idx,10)];
+    };
+  });
+
+  document.getElementById('reportSubmitBtn').onclick = () => {
+    if(!selectedReason){ showToast('لطفاً یک دلیل انتخاب کنید'); return; }
+    close();
+    showToast(`گزارش شما درباره ${c.name} ثبت شد ✓`);
+  };
+
+  const escHandler = (e) => { if(e.key==='Escape'){ close(); document.removeEventListener('keydown', escHandler); } };
+  document.addEventListener('keydown', escHandler);
+}
+
+function toggleBlock(c){
+  if(!c || c.isGroup) return;
+  if(c.blocked){
+    c.blocked = false;
+    showToast(`مسدودیت ${c.name} رفع شد`);
+  } else {
+    if(!confirm(`آیا از مسدود کردن ${c.name} مطمئن هستید؟ دیگر نمی‌توانید برای این کاربر پیام ارسال کنید.`)) return;
+    c.blocked = true;
+    showToast(`${c.name} مسدود شد`);
+  }
+  persistChats();
+  if(activeChat===c.id) renderChatPanel(c);
+  renderChatList(document.getElementById('searchInput').value);
+}
+
+function openDeleteChatModal(c){
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+
+  const isGroupOrChannel = c.isGroup;
+  const otherLabel = c.type==='channel' ? 'کانال' : (c.type==='group' ? 'گروه' : 'طرف مقابل');
+
+  overlay.innerHTML = `
+    <div class="wizard-modal">
+      <div class="wizard-head">
+        <div class="title">حذف گفتگو</div>
+        <div class="icon-btn" id="delCloseBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+      </div>
+      <div class="wizard-body">
+        <div class="field-hint" style="margin-bottom:4px;">گفتگو با «${c.name}» را چگونه حذف می‌کنید؟</div>
+        <div class="delete-choice-row">
+          <div class="delete-choice-btn" id="delForMeBtn">
+            <div class="dc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div>
+              <div class="dc-title">حذف فقط برای من</div>
+              <div class="dc-sub">${isGroupOrChannel ? `این ${otherLabel} فقط از لیست شما حذف می‌شود؛ شما از آن خارج می‌شوید` : 'این گفتگو فقط از لیست شما حذف می‌شود؛ طرف مقابل همچنان آن را می‌بیند'}</div>
+            </div>
+          </div>
+          <div class="delete-choice-btn" id="delForBothBtn">
+            <div class="dc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div>
+              <div class="dc-title">${isGroupOrChannel ? `حذف کامل ${otherLabel}` : 'حذف برای من و طرف مقابل'}</div>
+              <div class="dc-sub">${isGroupOrChannel ? `این ${otherLabel} به‌طور کامل برای همه اعضا حذف می‌شود` : 'این گفتگو برای هر دو طرف به‌طور کامل حذف می‌شود'}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) close(); });
+  document.getElementById('delCloseBtn').onclick = close;
+
+  function performDelete(msg){
+    chats = chats.filter(x=>x.id!==c.id);
+    persistChats();
+    close();
+    if(activeChat===c.id){
+      activeChat = null;
+      appEl.classList.remove('chat-open');
+      renderEmptyChatPanel();
+    }
+    renderChatList(document.getElementById('searchInput').value);
+    refreshNavBadge();
+    showToast(msg);
+  }
+
+  document.getElementById('delForMeBtn').addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    if(!confirm(`گفتگو با «${c.name}» فقط از لیست شما حذف شود؟`)) return;
+    performDelete('گفتگو از لیست شما حذف شد');
+  });
+  document.getElementById('delForBothBtn').addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    if(!confirm(`گفتگو با «${c.name}» برای همه حذف شود؟ این عملیات غیرقابل بازگشت است.`)) return;
+    performDelete(isGroupOrChannel ? `${otherLabel} حذف شد` : 'گفتگو برای هر دو طرف حذف شد');
+  });
+
+  const escHandler = (e) => { if(e.key==='Escape'){ close(); document.removeEventListener('keydown', escHandler); } };
+  document.addEventListener('keydown', escHandler);
+}
+
+
+const sidebarScroll = document.getElementById('sidebarScroll');
+const navChatsBtn = document.getElementById('navChats');
+const navSettingsBtn = document.getElementById('navSettings');
+const settingsRoot = document.getElementById('settingsRoot');
+
+function setNavActive(which){
+  navChatsBtn.classList.toggle('active', which==='chats');
+  navSettingsBtn.classList.toggle('active', which==='settings');
+}
+
+navChatsBtn.onclick = () => {
+  settingsRoot.innerHTML = '';
+  sidebarScroll.style.display = 'flex';
+  setNavActive('chats');
+};
+
+navSettingsBtn.onclick = () => {
+  sidebarScroll.style.display = 'none';
+  setNavActive('settings');
+  renderSettingsMain();
+};
+
+function renderSettingsMain(){
+  settingsRoot.innerHTML = `
+    <div class="settings-view">
+      <div class="settings-head">
+        <div class="title">تنظیمات</div>
+      </div>
+      <div class="settings-body">
+        <div class="settings-group">
+          <div class="settings-row" id="rowProfile">
+            <div class="avatar" style="width:38px;height:38px;font-size:13px;${myProfile.photo ? `background:url('${myProfile.photo}') center/cover` : `background:${myProfile.color}`}">${myProfile.photo ? '' : myProfile.initials}</div>
+            <div class="row-text">
+              <div class="row-title">${myProfile.name}</div>
+              <div class="row-sub">@${myProfile.userId}</div>
+            </div>
+            <svg class="row-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-row" id="rowTheme">
+            <div class="row-icon" style="background:${themePresets.find(t=>t.id===currentTheme).grad}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="13.5" cy="6.5" r="1.5" fill="white"/><circle cx="17.5" cy="10.5" r="1.5" fill="white"/><circle cx="8.5" cy="7.5" r="1.5" fill="white"/><circle cx="6.5" cy="12.5" r="1.5" fill="white"/><path d="M12 22a10 10 0 110-20 6 6 0 016 6c0 1.5-.5 2-2 2h-2a2 2 0 00-2 2v1a3 3 0 01-3 3c-1 0 -1 2 3 6z" stroke="white" stroke-width="1.4"/></svg>
+            </div>
+            <div class="row-text">
+              <div class="row-title">تم برنامه</div>
+              <div class="row-sub">رنگ‌بندی و پس‌زمینه</div>
+            </div>
+            <svg class="row-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-row" id="rowLogout" style="border-bottom:none;">
+            <div class="row-icon" style="background:var(--danger)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="row-text">
+              <div class="row-title" style="color:var(--danger)">خروج از حساب</div>
+              <div class="row-sub">با ایمیل @${myProfile.email || myProfile.userId} وارد شده‌اید</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('rowProfile').onclick = renderProfileEdit;
+  document.getElementById('rowTheme').onclick = renderThemeEdit;
+  document.getElementById('rowLogout').onclick = confirmLogout;
+}
+
+function confirmLogout(){
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="wizard-modal" style="max-width:340px;">
+      <div class="wizard-body" style="text-align:center; padding-top:26px;">
+        <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,92,122,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="var(--danger)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div style="font-size:15.5px; font-weight:800; margin-bottom:8px;">خروج از حساب کاربری</div>
+        <div style="font-size:13px; color:var(--text-3); line-height:1.7;">آیا مطمئن هستید که می‌خواهید از حساب خود خارج شوید؟</div>
+      </div>
+      <div class="wizard-footer" style="display:flex; gap:10px;">
+        <button class="settings-save-btn ghost-danger" id="confirmLogoutBtn">بله، خارج شو</button>
+        <button class="settings-save-btn" id="cancelLogoutBtn" style="background:rgba(255,255,255,0.06); box-shadow:none; color:var(--text-1);">انصراف</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) close(); });
+  document.getElementById('cancelLogoutBtn').onclick = close;
+  document.getElementById('confirmLogoutBtn').onclick = () => {
+    close();
+    doLogout();
+  };
+}
+
+function doLogout(){
+  isLoggedIn = false;
+  appEl.style.display = 'none';
+  activeChat = null;
+  appEl.classList.remove('chat-open');
+  showToast('با موفقیت خارج شدید');
+  renderAuthLogin();
+}
+
+function settingsHeaderWithBack(title, onBack){
+  return `
+    <div class="settings-head">
+      <div class="icon-btn" id="settingsBackBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="title">${title}</div>
+    </div>
+  `;
+}
+
+/* -------- Profile edit: photo, name, id -------- */
+function renderProfileEdit(){
+  const isPhoto = myProfile.photo ? true : false;
+  settingsRoot.innerHTML = `
+    <div class="settings-view">
+      ${settingsHeaderWithBack('ویرایش پروفایل')}
+      <div class="settings-body">
+        <div class="profile-edit-top">
+          <div class="avatar-edit-wrap">
+            <div class="avatar" id="editAvatarPreview" style="${isPhoto ? `background-image:url('${myProfile.photo}')` : `background:${myProfile.color}`}">${isPhoto ? '' : myProfile.initials}</div>
+            <div class="avatar-edit-btn" id="avatarEditBtn" title="آپلود عکس">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <input type="file" accept="image/*" class="hidden-file-input" id="avatarFileInput" />
+          </div>
+          <div class="field-hint" style="text-align:center; margin-top:12px;">روی آیکون مداد بزن تا عکس آپلود کنی، یا از رنگ‌ها انتخاب کن</div>
+          <div class="avatar-color-picker" id="avatarColorPicker"></div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">نام نمایشی</label>
+          <div class="field-input-wrap">
+            <input id="nameInput" type="text" value="${myProfile.name}" maxlength="30" placeholder="نام شما" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">آیدی (یوزرنیم)</label>
+          <div class="field-input-wrap id-field">
+            <span class="at">@</span>
+            <input id="idInput" type="text" value="${myProfile.userId}" maxlength="24" placeholder="username" dir="ltr" />
+          </div>
+          <div class="field-hint" id="idHint">فقط حروف انگلیسی، عدد و آندرلاین مجاز است</div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">ایمیل</label>
+          <div class="field-input-wrap id-field">
+            <input id="emailInputProfile" type="email" value="${myProfile.email}" maxlength="60" placeholder="you@gmail.com" dir="ltr" disabled />
+          </div>
+          <div class="field-hint">ایمیل حساب قابل ویرایش نیست</div>
+        </div>
+
+        <button class="settings-save-btn" id="saveProfileBtn">ذخیره تغییرات</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('settingsBackBtn').onclick = () => { renderSettingsMain(); };
+
+  // avatar color swatches
+  const picker = document.getElementById('avatarColorPicker');
+  const avatarPreview = document.getElementById('editAvatarPreview');
+  let pendingPhoto = myProfile.photo || null;
+  let pendingColor = myProfile.color;
+
+  function paintAvatarPreview(){
+    if(pendingPhoto){
+      avatarPreview.style.backgroundImage = `url('${pendingPhoto}')`;
+      avatarPreview.style.background = `url('${pendingPhoto}') center/cover`;
+      avatarPreview.textContent = '';
+    } else {
+      avatarPreview.style.backgroundImage = 'none';
+      avatarPreview.style.background = pendingColor;
+      avatarPreview.textContent = initialsFromName(nameInputVal());
+    }
+  }
+
+  gradients.forEach((g)=>{
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (!pendingPhoto && myProfile.color===g ? ' selected' : '');
+    sw.style.background = g;
+    sw.onclick = () => {
+      pendingPhoto = null;
+      pendingColor = g;
+      paintAvatarPreview();
+      picker.querySelectorAll('.swatch').forEach(el=>el.classList.remove('selected'));
+      sw.classList.add('selected');
+    };
+    picker.appendChild(sw);
+  });
+
+  const fileInput = document.getElementById('avatarFileInput');
+  document.getElementById('avatarEditBtn').onclick = () => fileInput.click();
+  fileInput.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){ showToast('فقط فایل تصویری مجاز است'); return; }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      pendingPhoto = ev.target.result;
+      paintAvatarPreview();
+      picker.querySelectorAll('.swatch').forEach(el=>el.classList.remove('selected'));
+    };
+    reader.readAsDataURL(file);
+  });
+
+  const nameInput = document.getElementById('nameInput');
+  const idInput = document.getElementById('idInput');
+  const idHint = document.getElementById('idHint');
+  const saveBtn = document.getElementById('saveProfileBtn');
+
+  function nameInputVal(){ return nameInput.value.trim() || 'کاربر'; }
+
+  function initialsFromName(n){
+    const parts = n.trim().split(/\s+/).filter(Boolean);
+    if(parts.length===0) return '؟';
+    if(parts.length===1) return parts[0].slice(0,2);
+    return parts[0][0] + '‌' + parts[1][0];
+  }
+
+  nameInput.addEventListener('input', ()=>{
+    if(!pendingPhoto) avatarPreview.textContent = initialsFromName(nameInputVal());
+  });
+
+  idInput.addEventListener('input', ()=>{
+    const raw = idInput.value;
+    const cleaned = raw.replace(/[^a-zA-Z0-9_]/g,'').toLowerCase();
+    if(raw !== cleaned) idInput.value = cleaned;
+    if(cleaned.length < 3){
+      idHint.textContent = 'آیدی باید حداقل ۳ کاراکتر باشد';
+      idHint.className = 'field-hint taken';
+    } else {
+      idHint.textContent = 'این آیدی معتبر است ✓';
+      idHint.className = 'field-hint ok';
+    }
+  });
+
+  saveBtn.onclick = () => {
+    const newName = nameInput.value.trim();
+    const newId = idInput.value.trim();
+    if(!newName){ showToast('نام نمی‌تواند خالی باشد'); return; }
+    if(newId.length < 3){ showToast('آیدی باید حداقل ۳ کاراکتر باشد'); return; }
+
+    myProfile.name = newName;
+    myProfile.userId = newId;
+    myProfile.initials = initialsFromName(newName);
+    myProfile.photo = pendingPhoto;
+    myProfile.color = pendingColor;
+
+    showToast('پروفایل ذخیره شد ✓');
+    renderSettingsMain();
+  };
+}
+
+
+/* -------- Theme edit: accent color + background color -------- */
+function renderThemeEdit(){
+  settingsRoot.innerHTML = `
+    <div class="settings-view">
+      ${settingsHeaderWithBack('ویرایش تم')}
+      <div class="settings-body">
+        <div class="theme-section-title">رنگ تم برنامه</div>
+        <div class="theme-swatch-grid" id="themeGrid"></div>
+
+        <div class="theme-section-title">رنگ پس‌زمینه</div>
+        <div class="bg-swatch-grid" id="bgGrid"></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('settingsBackBtn').onclick = renderSettingsMain;
+
+  const themeGrid = document.getElementById('themeGrid');
+  themePresets.forEach(t=>{
+    const sw = document.createElement('div');
+    sw.className = 'theme-swatch' + (currentTheme===t.id ? ' selected' : '');
+    sw.style.background = t.grad;
+    sw.title = t.label;
+    sw.innerHTML = `<span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+    sw.onclick = () => {
+      applyTheme(t.id);
+      themeGrid.querySelectorAll('.theme-swatch').forEach(el=>el.classList.remove('selected'));
+      sw.classList.add('selected');
+      showToast('تم برنامه تغییر کرد ✓');
+      renderChatList(document.getElementById('searchInput')?.value || '');
+      if(activeChat){ renderChatPanel(chats.find(x=>x.id===activeChat)); }
+    };
+    themeGrid.appendChild(sw);
+  });
+
+  const bgGrid = document.getElementById('bgGrid');
+  bgPresets.forEach(b=>{
+    const sw = document.createElement('div');
+    sw.className = 'bg-swatch' + (currentBg===b.id ? ' selected' : '');
+    sw.style.background = b.bg;
+    sw.style.border = currentBg===b.id ? '' : '2.5px solid rgba(255,255,255,0.1)';
+    sw.title = b.label;
+    sw.innerHTML = `<span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+    sw.onclick = () => {
+      applyBg(b.id);
+      bgGrid.querySelectorAll('.bg-swatch').forEach(el=>{ el.classList.remove('selected'); el.style.border='2.5px solid rgba(255,255,255,0.1)'; });
+      sw.classList.add('selected');
+      sw.style.border = '';
+      showToast('پس‌زمینه تغییر کرد ✓');
+    };
+    bgGrid.appendChild(sw);
+  });
+}
+
+/* ================= AUTH FLOW: login / register / forgot password ================= */
+
+function isValidEmail(v){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+function generateOtp(){
+  return String(Math.floor(1000 + Math.random()*9000));
+}
+
+function initialsFromNameGlobal(n){
+  const parts = (n||'').trim().split(/\s+/).filter(Boolean);
+  if(parts.length===0) return '؟';
+  if(parts.length===1) return parts[0].slice(0,2);
+  return parts[0][0] + '‌' + parts[1][0];
+}
+
+function renderAuthLogin(prefillEmail){
+  authRoot.innerHTML = `
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="auth-brand">
+          <div class="brand-mark">ز</div>
+          <div class="auth-title">ورود به زارت</div>
+          <div class="auth-sub">با ایمیل و رمز عبور خود وارد شوید</div>
+        </div>
+        <div id="loginErrorSlot"></div>
+        <div class="auth-field">
+          <label>ایمیل</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M2 7l10 6 10-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input id="loginEmail" type="email" placeholder="you@gmail.com" dir="ltr" value="${prefillEmail||''}" />
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>رمز عبور</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg>
+            <input id="loginPass" type="password" placeholder="••••••••" dir="ltr" />
+            <svg class="toggle-pass" id="loginPassToggle" width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/></svg>
+          </div>
+        </div>
+        <div class="auth-forgot"><a id="forgotLink">رمز عبور را فراموش کرده‌اید؟</a></div>
+        <button class="auth-btn" id="loginBtn">ورود</button>
+        <div class="auth-switch">حساب کاربری ندارید؟ <a id="goRegister">ثبت‌نام کنید</a></div>
+      </div>
+    </div>
+  `;
+
+  const passInput = document.getElementById('loginPass');
+  document.getElementById('loginPassToggle').onclick = () => {
+    passInput.type = passInput.type === 'password' ? 'text' : 'password';
+  };
+
+  document.getElementById('goRegister').onclick = () => renderAuthRegister();
+  document.getElementById('forgotLink').onclick = () => renderAuthForgotEmail(document.getElementById('loginEmail').value.trim());
+
+  function showErr(msg){
+    document.getElementById('loginErrorSlot').innerHTML = `<div class="auth-error">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>${msg}</span>
+    </div>`;
+  }
+
+  document.getElementById('loginBtn').onclick = () => {
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const pass = passInput.value;
+    document.getElementById('loginErrorSlot').innerHTML = '';
+
+    if(!email || !isValidEmail(email)){ showErr('ایمیل معتبر وارد کنید'); return; }
+    if(!pass){ showErr('رمز عبور را وارد کنید'); return; }
+
+    const account = registeredAccounts[email];
+    if(!account){ showErr('حسابی با این ایمیل یافت نشد'); return; }
+    if(account.password !== pass){ showErr('رمز عبور اشتباه است'); return; }
+
+    myProfile.name = account.name;
+    myProfile.userId = account.userId;
+    myProfile.email = email;
+    myProfile.initials = initialsFromNameGlobal(account.name);
+    myProfile.color = account.color || gradients[0];
+    myProfile.photo = account.photo || null;
+
+    loginSuccess();
+  };
+
+  passInput.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('loginBtn').click(); });
+}
+
+function renderAuthRegister(){
+  authRoot.innerHTML = `
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="auth-brand">
+          <div class="brand-mark">ز</div>
+          <div class="auth-title">ساخت حساب کاربری</div>
+          <div class="auth-sub">برای استفاده از زارت یک حساب بسازید</div>
+        </div>
+        <div id="regErrorSlot"></div>
+        <div class="auth-field">
+          <label>نام نمایشی</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <input id="regName" type="text" placeholder="نام شما" maxlength="30" />
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>ایمیل</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M2 7l10 6 10-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input id="regEmail" type="email" placeholder="you@gmail.com" dir="ltr" />
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>رمز عبور</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg>
+            <input id="regPass" type="password" placeholder="حداقل ۶ کاراکتر" dir="ltr" />
+            <svg class="toggle-pass" id="regPassToggle" width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/></svg>
+          </div>
+          <div class="pass-strength" id="passStrength"><span></span><span></span><span></span></div>
+        </div>
+        <div class="auth-field">
+          <label>تکرار رمز عبور</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg>
+            <input id="regPass2" type="password" placeholder="رمز عبور را دوباره وارد کنید" dir="ltr" />
+          </div>
+        </div>
+        <button class="auth-btn" id="registerBtn">ثبت‌نام</button>
+        <div class="auth-switch">قبلاً حساب دارید؟ <a id="goLogin">وارد شوید</a></div>
+      </div>
+    </div>
+  `;
+
+  const passInput = document.getElementById('regPass');
+  document.getElementById('regPassToggle').onclick = () => {
+    passInput.type = passInput.type === 'password' ? 'text' : 'password';
+  };
+
+  const strengthBars = document.querySelectorAll('#passStrength span');
+  passInput.addEventListener('input', ()=>{
+    const v = passInput.value;
+    let score = 0;
+    if(v.length>=6) score++;
+    if(v.length>=10) score++;
+    if(/[0-9]/.test(v) && /[a-zA-Z]/.test(v)) score++;
+    const colors = ['#ff5c7a','#ffb74a','#3ee089'];
+    strengthBars.forEach((bar,i)=>{
+      bar.style.background = i < score ? colors[Math.min(score,3)-1] : 'rgba(255,255,255,0.08)';
+    });
+  });
+
+  document.getElementById('goLogin').onclick = () => renderAuthLogin();
+
+  function showErr(msg){
+    document.getElementById('regErrorSlot').innerHTML = `<div class="auth-error">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>${msg}</span>
+    </div>`;
+  }
+
+  document.getElementById('registerBtn').onclick = () => {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const pass = passInput.value;
+    const pass2 = document.getElementById('regPass2').value;
+    document.getElementById('regErrorSlot').innerHTML = '';
+
+    if(!name){ showErr('نام نمایشی را وارد کنید'); return; }
+    if(!email || !isValidEmail(email)){ showErr('ایمیل معتبر وارد کنید'); return; }
+    if(registeredAccounts[email]){ showErr('این ایمیل قبلاً ثبت‌نام کرده است'); return; }
+    if(pass.length < 6){ showErr('رمز عبور باید حداقل ۶ کاراکتر باشد'); return; }
+    if(pass !== pass2){ showErr('تکرار رمز عبور مطابقت ندارد'); return; }
+
+    const userId = email.split('@')[0].replace(/[^a-zA-Z0-9_]/g,'').toLowerCase() + Math.floor(Math.random()*900+100);
+    const color = gradients[Math.floor(Math.random()*gradients.length)];
+
+    registeredAccounts[email] = { password: pass, name, userId, color, photo: null };
+
+    myProfile.name = name;
+    myProfile.userId = userId;
+    myProfile.email = email;
+    myProfile.initials = initialsFromNameGlobal(name);
+    myProfile.color = color;
+    myProfile.photo = null;
+
+    showToast('حساب شما ساخته شد ✓');
+    loginSuccess();
+  };
+}
+
+function renderAuthForgotEmail(prefill){
+  authRoot.innerHTML = `
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="auth-back-row">
+          <div class="icon-btn" id="forgotBackBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="auth-title">بازیابی رمز عبور</div>
+        </div>
+        <div class="auth-sub" style="text-align:right; margin-bottom:20px;">ایمیل حساب خود را وارد کنید تا کد تأیید برایتان ارسال شود</div>
+        <div id="fgErrorSlot"></div>
+        <div class="auth-field">
+          <label>ایمیل</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M2 7l10 6 10-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input id="fgEmail" type="email" placeholder="you@gmail.com" dir="ltr" value="${prefill||''}" />
+          </div>
+        </div>
+        <button class="auth-btn" id="fgSendBtn">ارسال کد تأیید</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('forgotBackBtn').onclick = () => renderAuthLogin();
+
+  function showErr(msg){
+    document.getElementById('fgErrorSlot').innerHTML = `<div class="auth-error">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>${msg}</span>
+    </div>`;
+  }
+
+  document.getElementById('fgSendBtn').onclick = () => {
+    const email = document.getElementById('fgEmail').value.trim().toLowerCase();
+    document.getElementById('fgErrorSlot').innerHTML = '';
+    if(!email || !isValidEmail(email)){ showErr('ایمیل معتبر وارد کنید'); return; }
+    if(!registeredAccounts[email]){ showErr('حسابی با این ایمیل یافت نشد'); return; }
+
+    pendingResetEmail = email;
+    pendingResetCode = generateOtp();
+    // شبیه‌سازی ارسال ایمیل — در پیام‌رسان واقعی این کد از طریق سرویس ایمیل ارسال می‌شود
+    showToast(`کد تأیید ارسال شد (نمایشی: ${pendingResetCode})`);
+    renderAuthOtp(email);
+  };
+
+  document.getElementById('fgEmail').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('fgSendBtn').click(); });
+}
+
+function renderAuthOtp(email){
+  let secondsLeft = 45;
+  authRoot.innerHTML = `
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="auth-back-row">
+          <div class="icon-btn" id="otpBackBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="auth-title">کد تأیید</div>
+        </div>
+        <div class="auth-sub" style="text-align:right; margin-bottom:20px;">کد ۴ رقمی ارسال‌شده به <b style="color:var(--text-1); direction:ltr; unicode-bidi:embed;">${email}</b> را وارد کنید</div>
+        <div id="otpErrorSlot"></div>
+        <div class="otp-inputs" id="otpInputs">
+          <input maxlength="1" inputmode="numeric" />
+          <input maxlength="1" inputmode="numeric" />
+          <input maxlength="1" inputmode="numeric" />
+          <input maxlength="1" inputmode="numeric" />
+        </div>
+        <div class="resend-row">کد را دریافت نکردید؟ <a id="resendOtp" class="disabled">ارسال مجدد (<span id="resendTimer">45</span>)</a></div>
+        <button class="auth-btn" id="otpVerifyBtn">تأیید کد</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('otpBackBtn').onclick = () => renderAuthForgotEmail(email);
+
+  const inputs = Array.from(document.querySelectorAll('#otpInputs input'));
+  inputs[0].focus();
+  inputs.forEach((inp, i)=>{
+    inp.addEventListener('input', ()=>{
+      inp.value = inp.value.replace(/[^0-9]/g,'');
+      if(inp.value && i < inputs.length-1) inputs[i+1].focus();
+    });
+    inp.addEventListener('keydown', (e)=>{
+      if(e.key==='Backspace' && !inp.value && i>0) inputs[i-1].focus();
+      if(e.key==='Enter') document.getElementById('otpVerifyBtn').click();
+    });
+    inp.addEventListener('paste', (e)=>{
+      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g,'').slice(0,4);
+      if(text.length){
+        e.preventDefault();
+        text.split('').forEach((ch,idx)=>{ if(inputs[idx]) inputs[idx].value = ch; });
+        inputs[Math.min(text.length,4)-1].focus();
+      }
+    });
+  });
+
+  function showErr(msg){
+    document.getElementById('otpErrorSlot').innerHTML = `<div class="auth-error">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>${msg}</span>
+    </div>`;
+  }
+
+  document.getElementById('otpVerifyBtn').onclick = () => {
+    document.getElementById('otpErrorSlot').innerHTML = '';
+    const code = inputs.map(i=>i.value).join('');
+    if(code.length < 4){ showErr('کد ۴ رقمی را کامل وارد کنید'); return; }
+    if(code !== pendingResetCode){ showErr('کد وارد شده صحیح نیست'); return; }
+    renderAuthNewPassword(email);
+  };
+
+  const resendLink = document.getElementById('resendOtp');
+  const timerSpan = document.getElementById('resendTimer');
+  const timerInterval = setInterval(()=>{
+    secondsLeft--;
+    if(secondsLeft<=0){
+      clearInterval(timerInterval);
+      resendLink.classList.remove('disabled');
+      resendLink.textContent = 'ارسال مجدد کد';
+    } else {
+      timerSpan.textContent = secondsLeft;
+    }
+  }, 1000);
+
+  resendLink.onclick = () => {
+    if(resendLink.classList.contains('disabled')) return;
+    pendingResetCode = generateOtp();
+    showToast(`کد جدید ارسال شد (نمایشی: ${pendingResetCode})`);
+    renderAuthOtp(email);
+  };
+}
+
+function renderAuthNewPassword(email){
+  authRoot.innerHTML = `
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <div class="auth-back-row">
+          <div class="auth-title">تعیین رمز عبور جدید</div>
+        </div>
+        <div class="auth-sub" style="text-align:right; margin-bottom:20px;">یک رمز عبور جدید برای حساب خود انتخاب کنید</div>
+        <div id="npErrorSlot"></div>
+        <div class="auth-field">
+          <label>رمز عبور جدید</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg>
+            <input id="npPass" type="password" placeholder="حداقل ۶ کاراکتر" dir="ltr" />
+            <svg class="toggle-pass" id="npPassToggle" width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/></svg>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>تکرار رمز عبور جدید</label>
+          <div class="auth-input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.7"/></svg>
+            <input id="npPass2" type="password" placeholder="تکرار رمز عبور" dir="ltr" />
+          </div>
+        </div>
+        <button class="auth-btn" id="npSaveBtn">ذخیره رمز جدید و ورود</button>
+      </div>
+    </div>
+  `;
+
+  const passInput = document.getElementById('npPass');
+  document.getElementById('npPassToggle').onclick = () => {
+    passInput.type = passInput.type === 'password' ? 'text' : 'password';
+  };
+
+  function showErr(msg){
+    document.getElementById('npErrorSlot').innerHTML = `<div class="auth-error">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>${msg}</span>
+    </div>`;
+  }
+
+  document.getElementById('npSaveBtn').onclick = () => {
+    document.getElementById('npErrorSlot').innerHTML = '';
+    const pass = passInput.value;
+    const pass2 = document.getElementById('npPass2').value;
+    if(pass.length < 6){ showErr('رمز عبور باید حداقل ۶ کاراکتر باشد'); return; }
+    if(pass !== pass2){ showErr('تکرار رمز عبور مطابقت ندارد'); return; }
+
+    if(registeredAccounts[email]){
+      registeredAccounts[email].password = pass;
+    }
+    pendingResetEmail = null;
+    pendingResetCode = null;
+
+    showToast('رمز عبور با موفقیت تغییر کرد ✓');
+    renderAuthLogin(email);
+  };
+}
+
+function loginSuccess(){
+  isLoggedIn = true;
+  authRoot.innerHTML = '';
+  appEl.style.display = 'grid';
+  renderChatList();
+  renderEmptyChatPanel();
+  sidebarScroll.style.display = 'flex';
+  settingsRoot.innerHTML = '';
+  setNavActive('chats');
+  appEl.classList.remove('chat-open');
+}
+
+/* ---------- Init ---------- */
+restoreChats();
+syncStreaks();
+renderAuthLogin();
 </script>
 
 </body>
+
 </html>
