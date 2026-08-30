@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 
+// Updated: Triggering Railway rebuild - 2026-08-30
 const app = express();
 const port = Number(process.env.PORT) || 3000;
 
