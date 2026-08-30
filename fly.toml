@@ -1,0 +1,25 @@
+# fly.io configuration
+app = "zart-messenger"
+primary_region = "dfw"
+
+[build]
+  image = "flyio/node:latest"
+
+[env]
+  NODE_ENV = "production"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  processes = ["app"]
+
+[checks]
+  [checks.status]
+    type = "http"
+    interval = 10000
+    timeout = 5000
+    grace_period = "5s"
+    method = "GET"
+    path = "/health"
